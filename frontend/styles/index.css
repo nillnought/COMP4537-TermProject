@@ -1,0 +1,59 @@
+*{
+    width:100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root{
+    /* colors */
+    --main-color: #7d72e0;
+    --secondary-color: #5e52ca;
+    --accent-color: #a198f7;
+    ---accent-text: #ffffff;
+
+    /* sizes */
+    --button-txt: 1rem;
+}
+
+#header{
+    height:8vh;
+    background-color: var(--secondary-color);
+}
+
+#main-cont{
+    height:90vh;
+    background-color: var(--accent-color);
+}
+
+#hero{
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color);
+}
+
+#register-btns{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.main-btn{
+    width: 25%;
+    padding: 0.5rem 1.2rem;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    background-color: var(--accent-color);
+    color: var(---accent-text);
+    font-size: var(--button-txt);
+    font-weight:600;
+    border-radius: 0.5em;
+}
+.main-btn:hover{
+    filter: contrast(1.5);
+}
