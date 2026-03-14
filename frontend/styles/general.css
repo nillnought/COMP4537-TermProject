@@ -1,0 +1,22 @@
+    *{
+        width:100%;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+    }
+
+    :root {
+        /* colors */
+        --main-color: #7d72e0;
+        --secondary-color: #5e52ca;
+        --accent-color: #a198f7;
+        --accent-text: #ffffff;
+
+        /* sizes */
+        --button-txt: 1rem;
+    }
