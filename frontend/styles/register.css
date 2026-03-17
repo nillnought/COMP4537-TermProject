@@ -10,6 +10,7 @@
     width: 50vh;
     height: 40vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 2em;
@@ -77,4 +78,14 @@
     cursor: pointer;
     text-decoration: underline;
     width:fit-content;
+}
+
+#title{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1em;
+    height: 15%;
+    color: var(--accent-color);
+    filter: brightness(0.4);
 }
