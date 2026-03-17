@@ -1,5 +1,3 @@
-const usernameEle = document.getElementById("username");
-const passwordEle = document.getElementById("password");
 
 const inputWrap = document.getElementById("form-input-wrap");
 
@@ -22,21 +20,41 @@ const LogInFields = `<input placeholder="Email" class="form-input" id="username"
 const SignUpFields = `<input placeholder="Email" class="form-input" id="username"
                     type="email" required>
                     <input placeholder="Password" class="form-input" type="password" id="password" required>
-                    <input placeholder="Confirm password" class="form-input" type="password" id="password" required>`;
+                    <input placeholder="Confirm password" class="form-input" type="password" id="confirmPass" required>`;
 
 const LogInMsg = "Have an account?";
 const SignUpMsg = "Don't have an account?";
 
 function processForm(){
+    const usernameEle = document.getElementById("username");
+    const passwordEle = document.getElementById("password");
     const username = usernameEle.value;
     const password = passwordEle.value;
 
     console.log(username);
     console.log(password);
+
+    if(!LogIn){
+        const confirmPassVal = document.getElementById("confirmPass").value;
+        console.log(confirmPassword(password, confirmPassVal));
+        if(confirmPassword(password, confirmPassVal)){
+            validateRegistration(username, password);
+        }
+    } else {
+        validateLogin(username, password);
+    }
 }
 
 function validateLogin(username, password){
 // placeholder, will put checking logic here later
+}
+
+function validateRegistration(username, password){
+    console.log("validated!");
+}
+
+function confirmPassword(password, confirmPass){
+    return password === confirmPass;
 }
 
 function switchLogIn(){
