@@ -89,3 +89,8 @@
     color: var(--accent-color);
     filter: brightness(0.4);
 }
+
+#title p {
+    filter: brightness(1.2);
+    font-weight: 300;
+}
