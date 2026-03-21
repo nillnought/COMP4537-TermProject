@@ -1,53 +1,116 @@
 
-const inputWrap = document.getElementById("form-input-wrap");
+class AuthForm {
+  constructor() {
+    this.inputWrap = document.getElementById('form-input-wrap');
+    this.switchEle = document.getElementById('switch');
+    this.forgotEle = document.getElementById('forgot');
+    this.submitBtn = document.getElementById('submit-btn');
+    this.roleWrap = document.getElementById('role-wrap');
+    this.loginMode = true;
 
-const switchEle = document.getElementById("switch");
-const forgotEle = document.getElementById("forgot");
+    this.loginFields = `\n      <input placeholder="Email" class="form-input" id="username" type="email" required>\n      <input placeholder="Password" class="form-input" id="password" type="password" required>`;
 
-const submitBtn = document.getElementById("submit-btn");
+    this.signupFields = `\n      <input placeholder="Email" class="form-input" id="username" type="email" required>\n      <input placeholder="Password" class="form-input" id="password" type="password" required>\n      <input placeholder="Confirm password" class="form-input" id="confirmPass" type="password" required>`;
 
-let LogIn = true;
+    this.switchEle.textContent = "Don't have an account?";
+    this.submitBtn.addEventListener('click', () => this.processForm());
+    this.switchEle.addEventListener('click', () => this.switchMode());
 
-submitBtn.addEventListener("click", processForm);
+    this.roleWrap.innerHTML = this.buildRoleSelection();
+  }
 
-switchEle.addEventListener("click", switchLogIn);
+  buildRoleSelection() {
+    return `
+      <div class="role-group">
+        <label><input type="radio" name="role" value="user" checked> User</label>
+        <label><input type="radio" name="role" value="admin"> Admin</label>
+      </div>`;
+  }
 
-// Move to a Lang file later
-const LogInFields = `<input placeholder="Email" class="form-input" id="username"
-                    type="email" required>
-                    <input placeholder="Password" class="form-input" type="password" id="password" required>`;
+  async processForm() {
+    const email = document.getElementById('username')?.value?.trim();
+    const password = document.getElementById('password')?.value?.trim();
 
-const SignUpFields = `<input placeholder="Email" class="form-input" id="username"
-                    type="email" required>
-                    <input placeholder="Password" class="form-input" type="password" id="password" required>
-                    <input placeholder="Confirm password" class="form-input" type="password" id="confirmPass" required>`;
-
-const LogInMsg = "Have an account?";
-const SignUpMsg = "Don't have an account?";
-
-function processForm(){
-    const usernameEle = document.getElementById("username");
-    const passwordEle = document.getElementById("password");
-    const username = usernameEle.value;
-    const password = passwordEle.value;
-
-    console.log(username);
-    console.log(password);
-
-    if(!LogIn){
-        const confirmPassVal = document.getElementById("confirmPass").value;
-        console.log(confirmPassword(password, confirmPassVal));
-        if(confirmPassword(password, confirmPassVal)){
-            validateRegistration(username, password);
-        }
-    } else {
-        validateLogin(username, password);
+    if (!email || !password) {
+      alert('Email and password are required');
+      return;
     }
+
+    if (this.loginMode) {
+      await this.validateLogin(email, password);
+      return;
+    }
+
+    const confirmPass = document.getElementById('confirmPass')?.value?.trim();
+    if (password !== confirmPass) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    const type = document.querySelector('input[name="role"]:checked')?.value || 'user';
+    await this.validateRegistration(email, password, type);
+  }
+
+  async validateRegistration(email, password, type) {
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, type }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error || 'Registration failed');
+      return;
+    }
+
+    alert('Registration successful, please log in');
+    this.switchMode(true); // go to login mode
+  }
+
+  async validateLogin(email, password) {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error || 'Login failed');
+      return;
+    }
+
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('userType', data.type);
+    localStorage.setItem('userId', data.userId);
+
+    if (data.type === 'admin') {
+      window.location.href = '/admin-landing.html';
+    } else {
+      window.location.href = '/user-landing.html';
+    }
+  }
+
+  switchMode(forceLogin = false) {
+    if (forceLogin) this.loginMode = true;
+    else this.loginMode = !this.loginMode;
+
+    if (this.loginMode) {
+      this.inputWrap.innerHTML = this.loginFields;
+      this.switchEle.textContent = "Don't have an account?";
+      this.forgotEle.style.display = 'inline';
+      this.roleWrap.style.display = 'none';
+    } else {
+      this.inputWrap.innerHTML = this.signupFields;
+      this.switchEle.textContent = 'Have an account?';
+      this.forgotEle.style.display = 'none';
+      this.roleWrap.style.display = 'block';
+    }
+  }
 }
 
-function validateLogin(username, password){
-// placeholder, will put checking logic here later
-}
+window.addEventListener('DOMContentLoaded', () => new AuthForm());
 
 function validateRegistration(username, password){
     console.log("validated!");

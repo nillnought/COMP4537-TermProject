@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="styles/general.css">
+</head>
+<body>
+  <div id="main-cont">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, admin user.</p>
+    <button id="signout">Sign Out</button>
+  </div>
+  <script>
+    const token = localStorage.getItem('token');
+    const userType = localStorage.getItem('userType');
+    if (!token || userType !== 'admin') {
+      window.location.href = '/register.html';
+    }
+
+    document.getElementById('signout').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userType');
+      localStorage.removeItem('userId');
+      window.location.href = '/';
+    });
+  </script>
+</body>
+</html>
