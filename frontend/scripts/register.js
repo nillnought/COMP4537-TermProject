@@ -7,6 +7,7 @@ class AuthForm {
     this.submitBtn = document.getElementById('submit-btn');
     this.roleWrap = document.getElementById('role-wrap');
     this.loginMode = true;
+    this.backendURL = "http://localhost:8000";
 
     this.loginFields = `\n      <input placeholder="Email" class="form-input" id="username" type="email" required>\n      <input placeholder="Password" class="form-input" id="password" type="password" required>`;
 
@@ -52,7 +53,7 @@ class AuthForm {
   }
 
   async validateRegistration(email, password, type) {
-    const res = await fetch('/api/auth/register', {
+    const res = await fetch(`${this.backendURL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, type }),
@@ -69,7 +70,7 @@ class AuthForm {
   }
 
   async validateLogin(email, password) {
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch(`${this.backendURL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -85,10 +86,11 @@ class AuthForm {
     localStorage.setItem('userType', data.type);
     localStorage.setItem('userId', data.userId);
 
+    // will need to remove the frontend portion when we host
     if (data.type === 'admin') {
-      window.location.href = '/admin-landing.html';
+      window.location.href = '/frontend/admin-landing.html';
     } else {
-      window.location.href = '/user-landing.html';
+      window.location.href = '/frontend/user-landing.html';
     }
   }
 
@@ -111,24 +113,3 @@ class AuthForm {
 }
 
 window.addEventListener('DOMContentLoaded', () => new AuthForm());
-
-function validateRegistration(username, password){
-    console.log("validated!");
-}
-
-function confirmPassword(password, confirmPass){
-    return password === confirmPass;
-}
-
-function switchLogIn(){
-    LogIn = !LogIn;
-    if(LogIn){
-        inputWrap.innerHTML = LogInFields;
-        switchEle.textContent = SignUpMsg;
-        forgotEle.style = "";
-    } else {
-        inputWrap.innerHTML = SignUpFields;
-        switchEle.textContent = LogInMsg;
-        forgotEle.style.display = "none";
-    }
-}
