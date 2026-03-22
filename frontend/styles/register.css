@@ -94,3 +94,22 @@
     filter: brightness(1.2);
     font-weight: 300;
 }
+
+.role-group{
+    display: flex;
+    gap:1em;
+    width:25%;
+    color: #403d63;
+}
+.role-group input{
+    accent-color: var(--main-color);
+    cursor: pointer;
+}
+.role-group label{
+    cursor: pointer;
+}
+#role-wrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
