@@ -12,11 +12,11 @@
 
     :root {
         /* colors */
-        --main-color: #7d72e0;
-        --secondary-color: #5e52ca;
-        --accent-color: #a198f7;
-        --accent-text: #ffffff;
-        --dark-text: #403d63;
+        --main-color: #2a9191;
+        --secondary-color: #0e5050;
+        --accent-color: #e7e7e6;
+        --accent-text: #ebc107;
+        --dark-text: #33322b;
 
         /* sizes */
         --button-txt: 1rem;
