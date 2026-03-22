@@ -13,6 +13,8 @@ class Server {
     this.configureMiddleware();
     this.connectMongo();
     this.configureRoutes();
+    
+    this.start();
   }
 
   configureMiddleware() {
@@ -62,4 +64,4 @@ class Server {
   }
 }
 
-module.exports = Server;
+new Server();
