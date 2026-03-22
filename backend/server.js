@@ -19,7 +19,6 @@ class Server {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(express.static(path.join(__dirname, '../frontend')));
   }
 
   async connectMongo() {
@@ -46,6 +45,9 @@ class Server {
     this.app.get('/', (req, res) => {
       res.sendFile(path.join(__dirname, '../frontend/index.html'));
     });
+
+    // Serve static files as fallback
+    this.app.use(express.static(path.join(__dirname, '../frontend')));
 
     // Catch-all 404 route
     this.app.use((req, res) => {
