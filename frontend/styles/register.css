@@ -16,10 +16,11 @@
     padding: 2em;
     background-color: var(--accent-color);
     border-radius: 2em;
+    box-shadow: 1em 1em 0.5em var(--secondary-color);
 }
 
 #sign-up{
-    height: 70%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
