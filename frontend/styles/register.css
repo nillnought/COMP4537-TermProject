@@ -12,17 +12,17 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: ce;
     padding: 2em;
     background-color: var(--accent-color);
     border-radius: 2em;
 }
 
 #sign-up{
-    height: 80%;
+    height: 70%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap:1em;
     transition: 0.2s;

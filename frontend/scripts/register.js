@@ -94,20 +94,19 @@ class AuthForm {
     }
   }
 
-  switchMode(forceLogin = false) {
-    if (forceLogin) this.loginMode = true;
-    else this.loginMode = !this.loginMode;
+  switchMode() {
+    this.loginMode = !this.loginMode;
 
     if (this.loginMode) {
       this.inputWrap.innerHTML = this.loginFields;
       this.switchEle.textContent = "Don't have an account?";
-      this.forgotEle.style.display = 'inline';
-      this.roleWrap.style.display = 'none';
+      this.forgotEle.style.display = 'flex';
+      this.roleWrap.style.display = 'flex';
     } else {
       this.inputWrap.innerHTML = this.signupFields;
       this.switchEle.textContent = 'Have an account?';
       this.forgotEle.style.display = 'none';
-      this.roleWrap.style.display = 'block';
+      this.roleWrap.style.display = 'none';
     }
   }
 }
