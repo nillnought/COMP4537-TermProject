@@ -1,4 +1,4 @@
-const backendURL = "http://localhost:8000";
+const backendURL = "https://thincutbacon.site";
 
 const token = localStorage.getItem('token');
 const userType = localStorage.getItem('userType');
