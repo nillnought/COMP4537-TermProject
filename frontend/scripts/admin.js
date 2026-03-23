@@ -1,4 +1,4 @@
-const backendURL = "http://localhost:8000";
+const backendURL = "https://thincutbacon.site";
 
 document.getElementById('signout').addEventListener('click', () => {
     localStorage.removeItem('token');

@@ -7,7 +7,7 @@ class AuthForm {
     this.submitBtn = document.getElementById('submit-btn');
     this.roleWrap = document.getElementById('role-wrap');
     this.loginMode = true;
-    this.backendURL = "http://localhost:8000";
+    this.backendURL = "https://thincutbacon.site";
 
     this.loginFields = `\n      <input placeholder="Email" class="form-input" id="username" type="email" required>\n      <input placeholder="Password" class="form-input" id="password" type="password" required>`;
 
