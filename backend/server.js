@@ -31,7 +31,6 @@ class Server {
       console.log('✅ MongoDB connected successfully');
     } catch (err) {
       console.error('❌ MongoDB connection error:', err.message);
-      console.log("MONGO_URI:", process.env.MONGO_URI);
       process.exit(1);
     }
   }
