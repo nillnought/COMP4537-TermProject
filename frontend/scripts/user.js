@@ -1,3 +1,5 @@
+const backendURL = "http://localhost:8000";
+
 const token = localStorage.getItem('token');
 const userType = localStorage.getItem('userType');
 if (!token || userType !== 'user') {
@@ -39,7 +41,6 @@ function quizPrompt() {
 
 document.getElementById("quiz-form").addEventListener("submit", createQuiz);
 
-const backendURL = "http://localhost:8000";
 
 async function createQuiz(e) {
     e.preventDefault();
