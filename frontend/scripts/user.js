@@ -1,3 +1,5 @@
+const backendURL = "http://localhost:8000";
+
 const token = localStorage.getItem('token');
 const userType = localStorage.getItem('userType');
 if (!token || userType !== 'user') {
@@ -8,7 +10,7 @@ document.getElementById('signout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
     localStorage.removeItem('userId');
-    window.location.href = '/';
+    window.location.href = '/frontend/';
 });
 
 
@@ -39,7 +41,6 @@ function quizPrompt() {
 
 document.getElementById("quiz-form").addEventListener("submit", createQuiz);
 
-const backendURL = "http://localhost:8000";
 
 async function createQuiz(e) {
     e.preventDefault();
