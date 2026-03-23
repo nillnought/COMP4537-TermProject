@@ -38,32 +38,20 @@
         <button id="create-quiz" class="add-btn"></button>
       </div>
       <hr>
+      <div id="pop-up">
+        <div id="pop-up-box">
+          <form id="quiz-form">
+            <input type="text" placeholder="Quiz topic" id="quiz-text">
+            <h4>OR</h4>
+            <label for="file-input" id="file-wrapper">Select PDF</label>
+            <input id="file-input" type="file" accept=".pdf">
+            <button id="generate-quiz">Generate quiz</button>
+          </form>
+        </div>
+      </div>
       <div  id="quiz-list" class="item-list"></div>
     </div>
   </div>
-  <script>
-    const token = localStorage.getItem('token');
-    const userType = localStorage.getItem('userType');
-    if (!token || userType !== 'admin') {
-      window.location.href = '/register.html';
-    }
-
-    document.getElementById('signout').addEventListener('click', () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('userType');
-      localStorage.removeItem('userId');
-      window.location.href = '/';
-    });
-    document.getElementById("create-class").addEventListener('click', AddClass);
-    document.getElementById("create-quiz").addEventListener('click', createQuiz);
-
-    function AddClass(){
-      document.getElementById("no-classes").style.display = "none";
-      const classList = document.getElementById("class-list");
-      const templateClone = document.getElementById("class-template").content.cloneNode(true);
-
-      classList.appendChild(templateClone);
-    }
-  </script>
+  <script src="scripts/admin.js" defer />
 </body>
 </html>
