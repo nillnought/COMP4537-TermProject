@@ -1,0 +1,116 @@
+
+#main-cont{
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+#header{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 5vh;
+    background-color: var(--secondary-color);
+    align-items: center;
+    padding: 1em;
+    color: var(--accent-text);
+    user-select: none;
+}
+
+#signout{
+    width: 20vw;
+    border:none;
+    background-color: var(--main-color);
+    padding: 0.5em;
+    border-radius: 2em;
+    font-weight: 600;
+    color: var(--accent-text);
+    cursor: pointer;
+}
+#signout:hover{
+    filter: contrast(1.5);
+}
+
+/* admin class list styling */
+
+.section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+}
+.item-list{
+    height: 30vh;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 1em;
+    justify-content: center;
+    overflow-y: auto;
+    gap:0.5em;
+    max-width: 80vw;
+}
+
+.class-box{
+    height: 15vh;
+    width: 15vh;
+    background-color: var(--secondary-color);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    gap:50%;
+    padding: 1em;
+    color: var(--light-text);
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+}
+.class-name{
+    font-weight: 600;
+}
+.class-size{
+    text-align: right;
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+
+.class-box:hover, #create-class:hover{
+    filter:contrast(1.5);
+    box-shadow: 0 0 5px #464646;
+    transition: 0.2s;
+}
+
+#no-classes{
+    display: flex;
+    height: 5vh;
+    align-items: center;
+}
+.add-btn{
+    border:none;
+    background-color: var(--secondary-color);
+    width:3rem;
+    aspect-ratio: 1;
+    border-radius:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+
+    color: var(--light-text);
+    position: relative;
+}
+.add-btn::before {
+    content: "+";
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.section-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+}

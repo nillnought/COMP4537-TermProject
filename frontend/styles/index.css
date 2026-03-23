@@ -4,9 +4,8 @@
     position: sticky;
     top: 0;
 
-    background-color: var(--accent-color);
+    background-color: var(--secondary-color);
     
-    box-shadow: 0 0 0.5em 0.5em var(--main-shadow);
 }
 
 #main-cont{
@@ -24,7 +23,7 @@
     justify-content: center;
     
     background-color: var(--main-color);
-    box-shadow: 0 0 0.5em 0.5em var(--secondary-shadow);
+    /* box-shadow: 0 0 0.5em 0.5em var(--secondary-shadow); */
 }
 
 #register-btns{
@@ -46,11 +45,11 @@
     
     font-size: var(--button-txt);
     font-weight:600;
-    background-color: var(--accent-color);
+    background-color: var(--secondary-color);
     box-shadow: 0.5em 0.5em 0.5em var(--main-shadow);
-    color: var(--dark-text);
+    color: var(--light-text);
     cursor: pointer;
 }
 .main-btn:hover{
-    background-color: var(--accent-highlight);
+    background-color: var(--accent-color);
 }

@@ -20,7 +20,7 @@
     justify-content: center;
 
     background-color: var(--main-color);
-    box-shadow: 1em 1em 0.5em var(--secondary-shadow);
+    box-shadow: 0 0 0.5em var(--secondary-shadow);
 }
 
 #sign-up{
@@ -58,13 +58,13 @@
     border: none;
     border-radius: 0.5em;
     
-    background-color: var(--accent-color);
-    box-shadow: 0.5em 0.5em 0.5em var(--main-shadow);
-    color: var(--dark-text);
+    background-color: var(--secondary-color);
+    box-shadow: 0.2em 0.2em 0.5em var(--main-shadow);
+    color: var(--light-text);
     cursor: pointer;
 }
 #submit-btn:hover{
-    background-color: var(--accent-highlight);
+    background-color: var(--secondary-highlight);
 }
 
 #form-link-wrap{
@@ -80,7 +80,7 @@
     width:fit-content;
 
     font-size:smaller;
-    color: var(--accent-text);
+    color: var(--secondary-text);
     text-decoration: underline;
     
     cursor: pointer;
@@ -118,7 +118,7 @@
     color: var(--dark-text);
 }
 .role-group input{
-    accent-color: var(--accent-color);
+    accent-color: var(--secondary-color);
 
     cursor: pointer;
 }

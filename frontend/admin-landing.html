@@ -5,12 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="styles/general.css">
+  <link rel="stylesheet" href="styles/landing.css">
 </head>
 <body>
-  <div id="main-cont">
-    <h1>Admin Dashboard</h1>
-    <p>Welcome, admin user.</p>
+  <div id="header">
+    <h3>Admin Dashboard</h3>
     <button id="signout">Sign Out</button>
+  </div>
+  <div id="main-cont">
+    <div class="section" id="classes">
+      <div class="section-header">
+        <h3>My Classes</h3>
+        <button id="create-class" class="add-btn"></button>
+      </div>
+      <hr>
+      <div id="class-list" class="item-list">
+        <!-- class item template -->
+        <template id="class-template">
+          <div class="class-box">
+            <h4 class="class-name">Class Name</h4>
+            <p class="class-size">24 Students</p>
+          </div>
+        </template>
+        <div id="no-classes">
+          <h4>No classes yet...</h4>
+        </div>
+      </div>
+    </div>
+    <div id="quizzes" class="section">
+      <div class="section-header">
+        <h3>My Quizzes</h3>
+        <button id="create-quiz" class="add-btn"></button>
+      </div>
+      <hr>
+      <div  id="quiz-list" class="item-list"></div>
+    </div>
   </div>
   <script>
     const token = localStorage.getItem('token');
@@ -25,6 +54,16 @@
       localStorage.removeItem('userId');
       window.location.href = '/';
     });
+    document.getElementById("create-class").addEventListener('click', AddClass);
+    document.getElementById("create-quiz").addEventListener('click', createQuiz);
+
+    function AddClass(){
+      document.getElementById("no-classes").style.display = "none";
+      const classList = document.getElementById("class-list");
+      const templateClone = document.getElementById("class-template").content.cloneNode(true);
+
+      classList.appendChild(templateClone);
+    }
   </script>
 </body>
 </html>
