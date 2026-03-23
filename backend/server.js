@@ -6,6 +6,7 @@ const cors = require('cors');
 const Auth = require('./middleware/auth');
 const Accounts = require('./accounts');
 const quizRoutes = require('./quizRoutes');
+const User = require('./models/User');
 
 class Server {
   constructor() {
@@ -43,6 +44,21 @@ class Server {
       Auth.requireRole('user'),
       quizRoutes
     );
+
+    this.app.get(
+      '/api/admin/user-tokens',
+      Auth.verifyToken,
+      Auth.requireRole('admin'),
+      async (req, res) => {
+        try {
+          const users = await User.find({ type: 'user' }).select('id email tokens -_id');
+          res.json(users);
+        } catch(err) {
+          console.error(err);
+          res.status(500).json({ error: 'Failed to fetch user tokens' });
+        }
+      }
+    )
 
     this.app.get('/user-landing', Auth.verifyToken, Auth.requireRole('user'), (req, res) => {
       res.sendFile(path.join(__dirname, '../frontend/user-landing.html'));
