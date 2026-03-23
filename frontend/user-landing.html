@@ -13,21 +13,45 @@
     <button id="signout">Sign Out</button>
   </div>
   <div id="main-cont">
-  
+    <div class="section" id="classes">
+      <div class="section-header">
+        <h3>My Classes</h3>
+        <button id="create-class" class="add-btn"></button>
+      </div>
+      <hr>
+      <div id="class-list" class="item-list">
+        <!-- class item template -->
+        <template id="class-template">
+          <div class="class-box">
+            <h4 class="class-name">Class Name</h4>
+            <p class="class-size">24 Students</p>
+          </div>
+        </template>
+        <div id="no-classes">
+          <h4>No classes yet...</h4>
+        </div>
+      </div>
+    </div>
+    <div id="quizzes" class="section">
+      <div class="section-header">
+        <h3>My Quizzes</h3>
+        <button id="create-quiz" class="add-btn"></button>
+      </div>
+      <hr>
+      <div id="pop-up">
+        <div id="pop-up-box">
+          <form id="quiz-form">
+            <input type="text" placeholder="Quiz topic" id="quiz-text">
+            <h4>OR</h4>
+            <label for="file-input" id="file-wrapper">Select PDF</label>
+            <input id="file-input" type="file" accept=".pdf">
+            <button id="generate-quiz" type="submit">Generate quiz</button>
+          </form>
+        </div>
+      </div>
+      <div id="quiz-list" class="item-list"></div>
+    </div>
   </div>
-  <script>
-    const token = localStorage.getItem('token');
-    const userType = localStorage.getItem('userType');
-    if (!token || userType !== 'user') {
-      window.location.href = '/register.html';
-    }
-
-    document.getElementById('signout').addEventListener('click', () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('userType');
-      localStorage.removeItem('userId');
-      window.location.href = '/';
-    });
-  </script>
+  <script src="scripts/user.js" defer></script>
 </body>
 </html>

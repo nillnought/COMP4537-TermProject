@@ -40,7 +40,7 @@ class Server {
     this.app.use(
       '/api/quiz',
       Auth.verifyToken,
-      Auth.requireRole('admin'),
+      Auth.requireRole('user'),
       quizRoutes
     );
 
