@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const Auth = require('./middleware/auth');
 const Accounts = require('./accounts');
+const quizRoutes = require('./quizRoutes');
 
 class Server {
   constructor() {
@@ -35,6 +36,13 @@ class Server {
 
   configureRoutes() {
     this.app.use('/api/auth', new Accounts().router);
+
+    this.app.use(
+      '/api/quiz',
+      Auth.verifyToken,
+      Auth.requireRole('admin'),
+      quizRoutes
+    );
 
     this.app.get('/user-landing', Auth.verifyToken, Auth.requireRole('user'), (req, res) => {
       res.sendFile(path.join(__dirname, '../frontend/user-landing.html'));
