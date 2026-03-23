@@ -1,32 +1,35 @@
 #main-cont {
     height: 100vh;
-    background-color: var(--main-color);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: var(--secondary-color);
 }
 
 #sign-up-wrapper{
     width: 50vh;
     height: 40vh;
+
+    padding: 2em;
+    border-radius: 2em;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: ce;
-    padding: 2em;
-    background-color: var(--accent-color);
-    border-radius: 2em;
-    box-shadow: 1em 1em 0.5em var(--secondary-color);
+
+    background-color: var(--main-color);
+    box-shadow: 1em 1em 0.5em var(--secondary-shadow);
 }
 
 #sign-up{
     height: 80%;
     display: flex;
+
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap:1em;
-    transition: 0.2s;
 }
 
 #form-input-wrap{
@@ -38,33 +41,35 @@
 .form-input{
     padding: 0.5em;
     border:none;
-    background-color: var(--accent-color);
-    filter: contrast(2);
-    color: var(--main-color);
     border-radius: 0.5em;
+
+    background-color: var(--main-highlight);
+    color: var(--dark-text);
 }
 .form-input:focus{
     border:none;
     outline: none;
-    filter: contrast(3);
 }
 
 #submit-btn{
     width: 40%;
-    border: none;
+
     padding: 0.5em;
+    border: none;
     border-radius: 0.5em;
+    
     background-color: var(--accent-color);
-    filter: contrast(2);
-    color: var(--secondary-color);
+    box-shadow: 0.5em 0.5em 0.5em var(--main-shadow);
+    color: var(--dark-text);
     cursor: pointer;
 }
 #submit-btn:hover{
-    filter: contrast(3);
+    background-color: var(--accent-highlight);
 }
 
 #form-link-wrap{
     width: 100%;
+
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -72,45 +77,51 @@
 }
 
 .form-link{
-    font-size:smaller;
-    color: var(--accent-color);
-    filter: brightness(0.6);
-    user-select: none;
-    cursor: pointer;
-    text-decoration: underline;
     width:fit-content;
+
+    font-size:smaller;
+    color: var(--accent-text);
+    text-decoration: underline;
+    
+    cursor: pointer;
+    user-select: none;
 }
 
 #title{
+    height: 15%;
+    
     display: flex;
     flex-direction: column;
     text-align: center;
     gap: 1em;
-    height: 15%;
-    color: var(--accent-color);
-    filter: brightness(0.4);
+
+    color: var(--dark-text);
 }
 
 #title p {
-    filter: brightness(1.2);
     font-weight: 300;
 }
 
+#role-wrap{
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+}
+
 .role-group{
+    width:25%;
+    
     display: flex;
     gap:1em;
-    width:25%;
-    color: #403d63;
+
+    color: var(--dark-text);
 }
 .role-group input{
-    accent-color: var(--main-color);
+    accent-color: var(--accent-color);
+
     cursor: pointer;
 }
 .role-group label{
     cursor: pointer;
-}
-#role-wrap{
-    width: 100%;
-    display: flex;
-    justify-content: center;
 }

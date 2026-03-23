@@ -12,11 +12,18 @@
 
     :root {
         /* colors */
-        --main-color: #2a9191;
-        --secondary-color: #0e5050;
-        --accent-color: #e7e7e6;
-        --accent-text: #ebc107;
-        --dark-text: #33322b;
+        --main-color: #e6e1d2;
+        --main-highlight: #f1f0ec;
+        --main-shadow: #c7b89c;
+        --secondary-color: #26978e;
+        --secondary-highlight: #3db198;
+        --secondary-shadow: #1c7279;
+        --accent-color: #e2b605;
+        --accent-highlight: #ebca12;
+        --accent-shadow: #d39c05;
+        --dark-text: #0f0f0f;
+        --light-text: #eef5f4;
+        --accent-text: #054e48;
 
         /* sizes */
         --button-txt: 1rem;
