@@ -16,16 +16,6 @@ class AuthForm {
     this.switchEle.textContent = "Don't have an account?";
     this.submitBtn.addEventListener('click', () => this.processForm());
     this.switchEle.addEventListener('click', () => this.switchMode());
-
-    this.roleWrap.innerHTML = this.buildRoleSelection();
-  }
-
-  buildRoleSelection() {
-    return `
-      <div class="role-group">
-        <label><input type="radio" name="role" value="user" checked> User</label>
-        <label><input type="radio" name="role" value="admin"> Admin</label>
-      </div>`;
   }
 
   async processForm() {
@@ -101,12 +91,10 @@ class AuthForm {
       this.inputWrap.innerHTML = this.loginFields;
       this.switchEle.textContent = "Don't have an account?";
       this.forgotEle.style.display = 'flex';
-      this.roleWrap.style.display = 'flex';
     } else {
       this.inputWrap.innerHTML = this.signupFields;
       this.switchEle.textContent = 'Have an account?';
       this.forgotEle.style.display = 'none';
-      this.roleWrap.style.display = 'none';
     }
   }
 }

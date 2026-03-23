@@ -1,5 +1,11 @@
 const backendURL = "http://localhost:8000";
 
+document.getElementById('signout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('userId');
+    window.location.href = 'index.html';
+});
 
 document.addEventListener('DOMContentLoaded', async() =>{
     const token = localStorage.getItem('token');

@@ -10,7 +10,7 @@ document.getElementById('signout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
     localStorage.removeItem('userId');
-    window.location.href = '/frontend/';
+    window.location.href = 'index.html';
 });
 
 
