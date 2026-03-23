@@ -166,3 +166,9 @@
     border-radius: 0.5rem;
     padding: 0.5rem;
 }
+
+
+#user-list{
+    height: 80vh;
+    gap:0.2em;
+}
