@@ -53,6 +53,15 @@ async function createQuiz(e) {
     }
 
     try {
+        const balanceRes = await fetch(`${backendURL}/api/tokens/balance`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const balanceData = await balanceRes.json();
+
+        if (balanceData.tokens <= 0) {
+            alert("You have 0 tokens! Please contact an admin to add more.");
+            return;
+        }
         const res = await fetch(`${backendURL}/api/quiz/generate-quiz`, {
             method: 'POST',
             headers: {
@@ -66,6 +75,21 @@ async function createQuiz(e) {
 
         if (!res.ok) {
             throw new Error(data.error || "Failed to generate quiz");
+        }
+        const useTokenRes = await fetch(`${backendURL}/api/tokens/use`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!useTokenRes.ok) {
+            const tokenErr = await useTokenRes.json();
+            console.warn("Quiz generated, but failed to deduct token:", tokenErr.error);
+        } else {
+            const tokenData = await useTokenRes.json();
+            console.log(`Token deducted! Remaining: ${tokenData.tokensRemaining}`);
         }
 
         console.log("Quiz:", data);
