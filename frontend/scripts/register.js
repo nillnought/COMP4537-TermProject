@@ -78,9 +78,9 @@ class AuthForm {
 
     // will need to remove the frontend portion when we host
     if (data.type === 'admin') {
-      window.location.href = '/frontend/admin-landing.html';
+      window.location.href = 'admin-landing.html';
     } else {
-      window.location.href = '/frontend/user-landing.html';
+      window.location.href = 'user-landing.html';
     }
   }
 
