@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async() =>{
     const token = localStorage.getItem('token');
     const userType = localStorage.getItem('userType');
     if (!token || userType !== 'admin') {
-        window.location.href = '/register.html';
+        window.location.href = '/';
     }
 
     document.getElementById('signout').addEventListener('click', () => {
