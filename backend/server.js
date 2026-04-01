@@ -125,12 +125,16 @@ class Server {
       }
     });
 
-    this.app.get('/user-landing', Auth.verifyToken, Auth.requireRole('user'), (req, res) => {
+    this.app.get('/user-landing', (req, res) => {
       res.sendFile(path.join(__dirname, '../frontend/user-landing.html'));
     });
 
-    this.app.get('/admin-landing', Auth.verifyToken, Auth.requireRole('admin'), (req, res) => {
+    this.app.get('/admin-landing', (req, res) => {
       res.sendFile(path.join(__dirname, '../frontend/admin-landing.html'));
+    });
+
+    this.app.get('/take-quiz.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/take-quiz.html'));
     });
 
     this.app.get('/', (req, res) => {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Take Quiz</title>
+  <link rel="stylesheet" href="styles/general.css">
+  <link rel="stylesheet" href="styles/landing.css">
+  <link rel="stylesheet" href="styles/quiz.css">
+</head>
+<body>
+  <div id="header">
+    <div class="nav-bar">
+      <button id="back-btn" class="cancel-btn" style="width: auto; padding: 0.5rem 1rem;">&larr; Dashboard</button>
+      <h3 id="quiz-title">Loading Quiz...</h3>
+      <div id="token-display">Tokens: <span id="token-count">--</span></div>
+    </div>
+  </div>
+  
+  <div id="main-cont">
+    <div id="quiz-container">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: gray; font-size: 0.9rem;">
+        <span id="question-tracker">Question 1 of X</span>
+      </div>
+      
+      <h2 id="question-text">Loading question...</h2>
+      <div id="options-container"></div>
+      
+      <div id="hint-box"></div>
+
+      <div class="button-group" style="margin-top: 2rem;">
+        <button id="hint-btn" class="cancel-btn">Get AI Hint (1 Token)</button>
+        <button id="next-btn" class="submit-btn">Next Question</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/take-quiz.js" defer></script>
+</body>
+</html>
