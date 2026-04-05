@@ -6,30 +6,114 @@
     padding: 1em;
 }
 
-#header{
+#header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     height: 5vh;
+    min-height: 48px;
     background-color: var(--secondary-color);
-    align-items: center;
-    padding: 1em;
-    color: var(--accent-text);
+    padding: 0 1.5em;
+    color: var(--light-text);
     user-select: none;
+    box-sizing: border-box;
 }
 
-#signout{
-    width: 20vw;
-    border:none;
+#header * {
+    width: auto;
+    box-sizing: border-box;
+}
+
+#header h3 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    white-space: nowrap;
+    color: var(--light-text);
+    font-size: 1rem;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    justify-content: flex-end;
+    min-width: 0;
+}
+
+.app-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--light-text);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+#role-badge {
+    background: var(--main-color);
+    color: var(--accent-text);
+    padding: 0.2rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+#signout {
+    width: auto !important;
+    flex-shrink: 0;
+    border: none;
     background-color: var(--main-color);
-    padding: 0.5em;
+    padding: 0.4em 1.2em;
     border-radius: 2em;
     font-weight: 600;
     color: var(--accent-text);
     cursor: pointer;
+    white-space: nowrap;
 }
 #signout:hover{
     filter: contrast(1.5);
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1.5rem;
+    gap: 1rem;
+}
+
+.nav-bar * {
+    width: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.nav-bar h3 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    color: var(--light-text);
+    font-size: 1rem;
+}
+
+/* Reset critical elements to 100% width for layout */
+.section,
+.item-list {
+    width: 100%;
 }
 
 /* admin class list styling */
@@ -97,17 +181,17 @@
     align-items: center;
 }
 .add-btn{
-    border:none;
+    border: none;
     background-color: var(--secondary-color);
-    width:3rem;
+    width: 3rem;
     aspect-ratio: 1;
-    border-radius:50%;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     font-weight: 700;
-
+    flex-shrink: 0;
     color: var(--light-text);
     position: relative;
 }
@@ -122,6 +206,13 @@
     justify-content: center;
     align-items: center;
     margin: 1em;
+    gap: 1rem;
+}
+
+.section-header h3 {
+    margin: 0;
+    flex: 0 1 auto;
+    width: auto;
 }
 
 #user-list{
@@ -139,7 +230,7 @@
     left: 0; 
     width: 100vw; 
     height: 100vh;
-    background-color: #27272780; /* Using your existing dark transparent color */
+    background-color: #27272780;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,6 +259,14 @@
     gap: 1rem;
 }
 
+.error-msg {
+    margin: 0;
+    padding: 0.5rem 0;
+    color: #ff6b6b;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
 .pop-up-box input[type="text"] {
     padding: 0.75rem;
     border: 2px solid var(--secondary-shadow);
@@ -182,7 +281,6 @@
     margin-top: 0.5rem;
 }
 
-/* width: auto overrides the * {width: 100%} in general.css */
 .submit-btn, .cancel-btn {
     flex: 1;
     width: auto; 
