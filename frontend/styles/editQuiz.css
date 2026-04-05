@@ -9,12 +9,51 @@
     color: var(--accent-text);
     user-select: none;
 }
+
+#quiz-head{
+    display: flex;
+    width: 100%;
+    padding: 1em;
+    gap: 1em;
+    flex-direction: column;
+    padding-bottom: 0;
+}
+#head-btns{
+    display: flex;
+    gap:2em;
+    padding:1em;
+    padding-bottom: 0;
+    justify-content: center;
+}
+#save-quiz,#add-question {
+    border: none;
+        background-color: var(--secondary-color);
+        color: white;
+        width: 30vw;
+        max-width: 15rem;
+        min-width: fit-content;
+        padding: 0.5em;
+        border-radius: 2em;
+        font-weight: 600;
+        cursor: pointer;
+}
+#save-quiz:hover,
+#add-question:hover{
+    filter: contrast(1.5);
+}
+
 #main-cont {
     height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1em;
+    width:100%;
+}
+#edit-wrap{
+    padding-top: 1.5rem;
+    max-width: 80%;
+    min-width: 40%;
 }
 
 #questions-list {
@@ -77,4 +116,37 @@ input[type="checkbox"]{
 input[type="checkbox"]:checked{
     accent-color: var(--secondary-highlight);
     color:aliceblue;
+}
+
+#back-btn{
+    width: 20vw;
+    border: none;
+    background-color: var(--main-color);
+    padding: 0.5em;
+    border-radius: 2em;
+    font-weight: 600;
+    color: var(--accent-text);
+    cursor: pointer;
+    max-width: 10rem;
+}
+#back-btn:hover{
+    filter: contrast(1.5);
+}
+
+.delete-question{
+    border:none;
+    background-color: var(--secondary-color);
+    color: white;
+    width: 20vw;
+    max-width: 10rem;
+    min-width: fit-content;
+    padding: 0.5em;
+    border-radius: 2em;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    left:80%;
+}
+.delete-question:hover{
+    filter: contrast(1.5);
 }

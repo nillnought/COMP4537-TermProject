@@ -7,6 +7,7 @@ const chapterSchema = new mongoose.Schema({
   uploadedBy: { type: Number, required: true } // Stores the student's ID who uploaded it
 });
 
+// Add the entryCode line to your existing classSchema
 const classSchema = new mongoose.Schema({
   classID: { type: Number, required: true, unique: true, index: true },
   teacherID: { type: Number, required: true, index: true },
