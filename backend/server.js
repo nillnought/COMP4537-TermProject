@@ -7,7 +7,6 @@ const Auth = require('./middleware/auth');
 const Accounts = require('./accounts');
 const quizRoutes = require('./quizRoutes');
 const User = require('./models/User');
-const classRoutes = require('./classRoutes'); // NEW
 
 class Server {
   constructor() {
@@ -44,13 +43,6 @@ class Server {
       Auth.verifyToken,
       Auth.requireRole('user'),
       quizRoutes
-    );
-
-    this.app.use(
-      '/api/classes',
-      Auth.verifyToken,
-      Auth.requireRole('user'),
-      classRoutes
     );
 
     //gets users and tokens for admin

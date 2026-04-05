@@ -11,10 +11,9 @@ const chapterSchema = new mongoose.Schema({
 const classSchema = new mongoose.Schema({
   classID: { type: Number, required: true, unique: true, index: true },
   teacherID: { type: Number, required: true, index: true },
-  name: { type: String, required: true },
-  entryCode: { type: String, required: true, unique: true }, // NEW: The "Kahoot" join code
+  name: { type: String, required: true }, // ADDED: So your frontend can display the course name
   students: { type: [Number], required: true, default: [] },
-  chapters: [chapterSchema]
+  chapters: [chapterSchema] // ADDED: Array to hold the uploaded materials
 }, { timestamps: true });
 
 module.exports = mongoose.model('Class', classSchema);
