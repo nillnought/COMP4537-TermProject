@@ -10,37 +10,48 @@
 <body>
     <div id="header">
         <h3>User Dashboard</h3>
+        <button id="back-btn">Back</button>
     </div>
     <div id="main-cont">
         <div id="edit-wrap">
-            <input id="quiz-title" placeholder="Quiz title">
+            <div id="quiz-head">
+                <input id="quiz-title" placeholder="Quiz title">
+                <div id="head-btns">
+                    <button id="save-quiz">Save</button>
+                    <button id="add-question">Add Question</button>
+                </div>
+            </div>
             <br>
             <br>
             <br>
             <div id="questions-list">
-                <div class="question-wrap">
-                    <textarea class="question-txt" placeholder="Question"></textarea>
-                    <div class="question-options">
-                        <div class="option">
-                            <input type="checkbox">
-                            <span contenteditable="true">Question</span>
-                        </div>
-                        <div class="option">
-                            <input type="checkbox">
-                            <span contenteditable="true">Question</span>
-                        </div>
-                        <div class="option">
-                            <input type="checkbox">
-                            <span contenteditable="true">Question</span>
-                        </div>
-                        <div class="option">
-                            <input type="checkbox">
-                            <span contenteditable="true">Question</span>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
+    <template id="question-template">
+        <div class="question-wrap">
+            <textarea class="question-txt" placeholder="Question"></textarea>
+            <div class="question-options">
+                <!-- <div class="option">
+                    <input type="checkbox">
+                    <span contenteditable="true">Question</span>
+                </div>
+                <div class="option">
+                    <input type="checkbox">
+                    <span contenteditable="true">Question</span>
+                </div>
+                <div class="option">
+                    <input type="checkbox">
+                    <span contenteditable="true">Question</span>
+                </div>
+                <div class="option">
+                    <input type="checkbox">
+                    <span contenteditable="true">Question</span>
+                </div> -->
+            </div>
+        </div>
+    </template>
+    <script src="scripts/editQuiz.js" defer></script>
 </body>
 </html>
