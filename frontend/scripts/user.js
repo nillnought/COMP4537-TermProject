@@ -140,7 +140,7 @@ class DashboardUI {
 
     signOut() {
         localStorage.clear();
-        window.location.href = '/';
+        window.location.href = '/frontend/';
     }
 
     toggleModal(modalElement, show) {
@@ -221,6 +221,7 @@ class DashboardUI {
             }
             
             console.log(`Quiz generated successfully!`);
+            console.log(response)
             this.renderQuizCard(response.quiz);
             this.toggleModal(this.quizModal, false);
 
@@ -247,7 +248,7 @@ class DashboardUI {
         quizDiv.addEventListener('click', () => {
             // Store the specific quiz data so the next page can load it
             localStorage.setItem('currentActiveQuiz', JSON.stringify(quiz));
-            window.location.href = '/take-quiz.html';
+            window.location.href = 'take-quiz.html';
         });
 
         this.quizList.appendChild(quizDiv);

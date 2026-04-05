@@ -6,7 +6,7 @@ class QuizApp {
         this.quizData = JSON.parse(localStorage.getItem('currentActiveQuiz'));
         
         if (!this.token || !this.quizData) {
-            window.location.href = '/user-landing';
+            window.location.href = 'user-landing.html';
             return;
         }
 
@@ -34,7 +34,7 @@ class QuizApp {
     }
 
     attachListeners() {
-        this.backBtn.addEventListener('click', () => window.location.href = '/user-landing');
+        this.backBtn.addEventListener('click', () => window.location.href = 'user-landing.html');
         this.nextBtn.addEventListener('click', () => this.handleNext());
         this.hintBtn.addEventListener('click', () => this.getAIHint());
     }
