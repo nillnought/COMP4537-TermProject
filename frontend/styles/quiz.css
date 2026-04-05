@@ -41,15 +41,17 @@
 
 .nav-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     width: 100%;
     padding: 0 2rem;
+    gap: 1rem;
 }
 
 #token-display {
     font-weight: bold;
     color: var(--accent-text);
+    text-align: end;
 }
 
 #hint-box {
