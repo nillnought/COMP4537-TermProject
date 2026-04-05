@@ -67,4 +67,36 @@ router.post('/hint', async (req, res) => {
     await quizGenerator.generateHint(req, res);
 });
 
+//for getting a quiz by its quiz ID
+router.get('/:id', async(req, res) => {
+    try {
+        const quiz = await Quiz.findOne({quizID: req.params.id});
+        if (!quiz) {
+            return res.status(404).json({error: "Quiz could not be found."});
+        }
+        res.json(quiz);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: "Server error"});
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const {title, questions} = req.body;
+        const updated = await Quiz.findOneAndUpdate(
+            {quizID: req.params.id},
+            {title, questions},
+            { returnDocument: 'after' }
+        );
+
+        if (!updated) {
+            return res.status(404).json({error: "Quiz not found"});
+        }
+        res.json(updated);
+    } catch(err){
+        res.status(500).json({error: "Failed to update quiz"});
+    }
+});
+
 module.exports = router;

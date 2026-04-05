@@ -263,6 +263,11 @@ class DashboardUI {
             window.location.href = '/take-quiz.html';
         });
 
+        // for teachers to edit quizzes
+        // quizDiv.addEventListener('click', () => {
+        //     window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`
+        // });
+
         this.quizList.appendChild(quizDiv);
     }
 }
