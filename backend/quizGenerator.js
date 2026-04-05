@@ -13,9 +13,11 @@ class QuizGenerator {
             const numericId = req.user.userId || req.user.id;
             const user = await User.findOne({ id: numericId });
 
-            if (!user || user.tokens <= 0) {
-                return res.status(403).json({ error: 'Insufficient tokens.' });
+            if (!user) {
+                return res.status(404).json({ error: 'User not found.' });
             }
+
+            // REMOVED: The token balance check that used to be right here
 
             const text = req.body.topic;
             if (!text) {
@@ -25,7 +27,7 @@ class QuizGenerator {
             // 1. Generate the quiz JSON via AI
             const generatedQuizJSON = await this.aiModel.generateQuiz(text);
 
-            // 2. Generate a sequential quizID (just like you did for Users)
+            // 2. Generate a sequential quizID
             const latestQuiz = await Quiz.findOne().sort({ quizID: -1 }).exec();
             const nextQuizId = latestQuiz ? latestQuiz.quizID + 1 : 1;
 
@@ -38,15 +40,10 @@ class QuizGenerator {
             });
             await savedQuiz.save();
 
-            // 4. Deduct the token
-            user.tokens -= 1;
-            await user.save();
+            // REMOVED: The user.tokens -= 1 deduction that used to be here
 
-            // 5. Return the newly SAVED database object to the frontend
-            res.json({ 
-                quiz: savedQuiz, 
-                tokensRemaining: user.tokens 
-            });
+            // 4. Return the newly SAVED database object to the frontend
+            res.json({ quiz: savedQuiz });
 
         } catch(err) {
             console.error(err);

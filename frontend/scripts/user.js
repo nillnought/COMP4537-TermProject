@@ -220,7 +220,7 @@ class DashboardUI {
                 response = await this.api.generateQuizFromText(topic);
             }
             
-            console.log(`Quiz generated! Tokens remaining: ${response.tokensRemaining}`);
+            console.log(`Quiz generated successfully!`);
             this.renderQuizCard(response.quiz);
             this.toggleModal(this.quizModal, false);
 
