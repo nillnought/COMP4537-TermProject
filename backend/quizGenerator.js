@@ -17,30 +17,33 @@ class QuizGenerator {
                 return res.status(404).json({ error: 'User not found.' });
             }
 
-            // REMOVED: The token balance check that used to be right here
-
             const text = req.body.topic;
+            // Capture the number of questions, default to 10 if missing
+            const numQuestions = req.body.numQuestions || 10; 
+
             if (!text) {
                 return res.status(400).json({ error: 'Topic or content is required' });
             }
             
-            // 1. Generate the quiz JSON via AI
-            const generatedQuizJSON = await this.aiModel.generateQuiz(text);
+            // 1. Generate the quiz JSON via AI using the enriched prompt
+            const enrichedPrompt = `Topic: ${text}\n\nIMPORTANT: You MUST generate EXACTLY ${numQuestions} multiple-choice questions for this quiz.`;
+            const generatedQuizJSON = await this.aiModel.generateQuiz(enrichedPrompt);
 
-            // 2. Generate a sequential quizID
+            // 2. Generate a sequential quizID 
+            // (Make sure this exact capitalization is maintained!)
             const latestQuiz = await Quiz.findOne().sort({ quizID: -1 }).exec();
             const nextQuizId = latestQuiz ? latestQuiz.quizID + 1 : 1;
 
-            // 3. Save the new quiz to the database
+            // 3. Save the new quiz to the database 
+            // (Line 39 is likely right here)
             const savedQuiz = new Quiz({
-                quizID: nextQuizId,
+                quizID: nextQuizId, 
                 studentID: numericId,
                 title: generatedQuizJSON.title || "AI Generated Quiz",
                 questions: generatedQuizJSON.questions
             });
+            
             await savedQuiz.save();
-
-            // REMOVED: The user.tokens -= 1 deduction that used to be here
 
             // 4. Return the newly SAVED database object to the frontend
             res.json({ quiz: savedQuiz });

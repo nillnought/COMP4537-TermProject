@@ -36,7 +36,9 @@ router.post('/generate-from-pdf', upload.single('document'), async (req, res) =>
             return res.status(400).json({ error: 'No PDF file uploaded' });
         }
         
-        console.log(`2. File recognized: ${req.file.originalname} (${req.file.size} bytes)`);
+        // NEW: Grab the number from multer's parsed text fields (defaults to 10 if missing)
+        const requestedQuestions = req.body.numQuestions || 10;
+        console.log(`2. File recognized: ${req.file.originalname} (${req.file.size} bytes). User requested ${requestedQuestions} questions.`);
 
         console.log("3. Beginning PDF parsing...");
         const pdfData = await pdfParse(req.file.buffer);
@@ -46,6 +48,8 @@ router.post('/generate-from-pdf', upload.single('document'), async (req, res) =>
 
         // Attach text to body and run the AI generator
         req.body.topic = extractedText;
+        // req.body.numQuestions is already attached thanks to multer!
+        
         console.log("5. Handing off to AI Generator...");
         await quizGenerator.generateQuiz(req, res);
 
