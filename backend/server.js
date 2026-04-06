@@ -6,6 +6,7 @@ const cors = require('cors');
 const Auth = require('./middleware/auth');
 const Accounts = require('./accounts');
 const quizRoutes = require('./quizRoutes');
+const classRoutes = require('./classRoutes');
 const User = require('./models/User');
 
 class Server {
@@ -15,7 +16,7 @@ class Server {
     this.configureMiddleware();
     this.connectMongo();
     this.configureRoutes();
-    
+
     this.start();
   }
 
@@ -28,9 +29,9 @@ class Server {
   async connectMongo() {
     try {
       await mongoose.connect(process.env.MONGO_URI);
-      console.log('✅ MongoDB connected successfully');
+      console.log('MongoDB connected successfully');
     } catch (err) {
-      console.error('❌ MongoDB connection error:', err.message);
+      console.error('MongoDB connection error:', err.message);
       process.exit(1);
     }
   }
@@ -45,6 +46,13 @@ class Server {
       quizRoutes
     );
 
+    this.app.use(
+      '/api/classes',
+      Auth.verifyToken,
+      Auth.requireRole('user'),
+      classRoutes
+    );
+
     //gets users and tokens for admin
     this.app.get(
       '/api/admin/user-tokens',
@@ -54,7 +62,7 @@ class Server {
         try {
           const users = await User.find({ type: 'user' }).select('id email tokens _id');
           res.json(users);
-        } catch(err) {
+        } catch (err) {
           console.error(err);
           res.status(500).json({ error: 'Failed to fetch user tokens' });
         }
@@ -134,7 +142,7 @@ class Server {
     });
 
     this.app.get('/take-quiz.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/take-quiz.html'));
+      res.sendFile(path.join(__dirname, '../frontend/take-quiz.html'));
     });
 
     this.app.get('/', (req, res) => {
