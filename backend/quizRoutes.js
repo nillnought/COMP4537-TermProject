@@ -2,6 +2,8 @@ const express = require('express');
 const multer = require('multer');
 const pdfParse = require('pdf-parse-new');
 const QuizGenerator = require('./quizGenerator');
+const User = require('./models/User');
+const Class = require('./models/Class');
 const Quiz = require('./models/Quiz');
 const router = express.Router();
 const quizGenerator = new QuizGenerator();
@@ -15,10 +17,30 @@ router.post('/generate-quiz', quizGenerator.generateQuiz);
 router.get('/my-quizzes', async (req, res) => {
     try {
         const numericId = req.user.userId || req.user.id;
+
+        const user = await User.findOne({ id: numericId });
+
+        let myQuizzes = [];
+
+        if (user.role == 'student') {
+            const myClasses = await Class.find({ students: numericId });
+            for (const aClass of myClasses) {
+                const quizzes = await Quiz.find({ classID: aClass.classID }).sort({ createdAt: -1 });
+
+                if (quizzes != []) {
+                    console.log(myQuizzes);
+                    myQuizzes = myQuizzes.concat(quizzes);
+                    console.log(myQuizzes);
+                } 
+            }
+        } else if (user.role == 'teacher') {
+            // Find all quizzes matching the teacher's ID, sorted by newest first
+            myQuizzes = await Quiz.find({ teacherID: numericId }).sort({ createdAt: -1 });
+        } else {
+            res.status(500).json({ error: 'Failed to fetch user information' });
+        }
         
-        // Find all quizzes matching the student's ID, sorted by newest first
-        const myQuizzes = await Quiz.find({ studentID: numericId }).sort({ createdAt: -1 });
-        
+        console.log(myQuizzes);
         res.json(myQuizzes);
     } catch (err) {
         console.error(err);
