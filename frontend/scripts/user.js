@@ -527,6 +527,8 @@ class DashboardUI {
             this.classMap[joinedClass.classID] = joinedClass;
             this.renderStudentClassCard(joinedClass);
             this.toggleModal(this.joinClassModal, false);
+            this.quizzes = await this.api.fetchMyQuizzes();
+            this.renderQuizSections();
         } catch (err) {
             this.showError(this.joinClassModal, err.message || 'Failed to join class');
         } finally {
