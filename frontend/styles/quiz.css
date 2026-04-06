@@ -6,6 +6,7 @@
     border-radius: 1rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-top: 2rem;
+    
 }
 
 #question-text {
@@ -14,6 +15,14 @@
     font-size: 1.2rem;
 }
 
+#main-cont{
+    height: 100%;
+    overflow-x: hidden;
+}
+
+#options-container{
+    width:100%;
+}
 .option-btn {
     display: block;
     width: 100%;
