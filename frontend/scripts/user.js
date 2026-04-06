@@ -590,6 +590,7 @@ class DashboardUI {
             this.classMap[joinedClass.classID] = joinedClass;
             this.renderClassSections();
             this.toggleModal(this.joinClassModal, false);
+            this.renderQuizSections();
         } catch (err) {
             this.showError(this.joinClassModal, err.message || 'Failed to join class');
         } finally {
