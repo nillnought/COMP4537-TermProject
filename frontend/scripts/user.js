@@ -16,7 +16,7 @@ class APIService {
     async handleResponse(response) {
         if (response.status === 401) {
             localStorage.clear();
-            window.location.href = '/';
+            window.location.href = '/frontend/';
             throw new Error('Unauthorized');
         }
 
@@ -143,7 +143,7 @@ class DashboardUI {
 
             this.renderClassSections();
             this.renderQuizSections();
-            const quizzes = await this.api.fetchMyQuizzes();
+            // const quizzes = await this.api.fetchMyQuizzes();
 
             // Clear out any loading text
             this.quizList.innerHTML = '';
@@ -618,31 +618,33 @@ class DashboardUI {
         }
 
         this.toggleModal(this.assignQuizModal, true);
-        renderQuizCard(quiz) {
-            const quizDiv = document.createElement("div");
-            quizDiv.classList.add("class-box");
-            const questionCount = quiz.questions ? quiz.questions.length : 0;
+    }
 
-            quizDiv.innerHTML = `
-            <h4 class="class-name">${quiz.title || "Generated Quiz"}</h4>
-            <p class="class-size">${questionCount} Questions</p>
+    renderQuizCard(quiz) {
+        const quizDiv = document.createElement("div");
+        quizDiv.classList.add("class-box");
+        const questionCount = quiz.questions ? quiz.questions.length : 0;
+
+        quizDiv.innerHTML = `
+        <h4 class="class-name">${quiz.title || "Generated Quiz"}</h4>
+        <p class="class-size">${questionCount} Questions</p>
         `;
 
-            // Add click event to redirect to the quiz page
-            quizDiv.addEventListener('click', () => {
-                // Store the specific quiz data so the next page can load it
-                localStorage.setItem('currentActiveQuiz', JSON.stringify(quiz));
-                window.location.href = 'take-quiz.html';
-            });
+        // Add click event to redirect to the quiz page
+        quizDiv.addEventListener('click', () => {
+            // Store the specific quiz data so the next page can load it
+            localStorage.setItem('currentActiveQuiz', JSON.stringify(quiz));
+            window.location.href = 'take-quiz.html';
+        });
 
-            // for teachers to edit quizzes
-            // quizDiv.addEventListener('click', () => {
-            //     window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`
-            // });
+        // for teachers to edit quizzes
+        // quizDiv.addEventListener('click', () => {
+        //     window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`
+        // });
 
-            this.quizList.appendChild(quizDiv);
-        }
+        this.quizList.appendChild(quizDiv);
     }
+
 }
 
 // Initialization
