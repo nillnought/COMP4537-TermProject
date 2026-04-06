@@ -221,12 +221,12 @@ class DashboardUI {
             this.closeClassBtn.addEventListener('click', () => this.toggleModal(this.classModal, false));
         }
 
-        if (this.createQuizBtn) {
-            this.createQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, true));
-        }
-        if (this.closeQuizBtn) {
-            this.closeQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, false));
-        }
+        // if (this.createQuizBtn) {
+        //     this.createQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, true));
+        // }
+        // if (this.closeQuizBtn) {
+        //     this.closeQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, false));
+        // }
 
         if (this.joinClassBtn) {
             this.joinClassBtn.addEventListener('click', () => this.toggleModal(this.joinClassModal, true));
@@ -477,9 +477,9 @@ class DashboardUI {
             <h4 class="class-name">${quiz.title || 'Generated Quiz'}</h4>
             <p class="class-size">Created: ${createdDate}</p>
         `;
+        // for teachers to edit quizzes
         quizDiv.addEventListener('click', () => {
-            localStorage.setItem('currentActiveQuiz', JSON.stringify(quiz));
-            window.location.href = '/take-quiz.html';
+            window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`
         });
         this.teacherQuizList.appendChild(quizDiv);
     }
@@ -698,10 +698,7 @@ class DashboardUI {
             window.location.href = 'take-quiz.html';
         });
 
-        // for teachers to edit quizzes
-        // quizDiv.addEventListener('click', () => {
-        //     window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`
-        // });
+        
 
         this.quizList.appendChild(quizDiv);
     }
