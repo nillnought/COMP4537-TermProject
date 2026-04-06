@@ -195,6 +195,9 @@
     color: var(--light-text);
     position: relative;
 }
+.add-btn:hover{
+    filter: contrast(1.5);
+}
 .add-btn::before {
     content: "+";
     font-size: 1.5rem;
@@ -334,7 +337,7 @@
     color: var(--dark-text);
 }
 
-#file-input {
+#teacher-file-input, #file-input {
     display: none;
 }
 
