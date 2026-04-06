@@ -5,6 +5,7 @@ const QuizGenerator = require('./quizGenerator');
 const User = require('./models/User');
 const Class = require('./models/Class');
 const Quiz = require('./models/Quiz');
+const Score = require('./models/Score');
 const router = express.Router();
 const quizGenerator = new QuizGenerator();
 
@@ -120,5 +121,28 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({error: "Failed to update quiz"});
     }
 });
+
+router.post('/record-score', async(req, res) => {
+    try {
+        const score = Score.findOne({ quizID: req.body.quizId, studentID: req.body.studentId});
+
+        if (score == null) {
+            const newScore = new Score({
+                quizID: req.body.quizId,
+                studentID: req.body.studentId, 
+                score: req.body.score
+            });
+
+            await newScore.save();
+        } else {
+            Score.updateOne(score, { $inc: { attempts: +1 }, $set: { score: this.score } })
+        }
+
+        res.json({ score: newScore });
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ error: err.message || "Failed to record score" });
+    }
+})
 
 module.exports = router;

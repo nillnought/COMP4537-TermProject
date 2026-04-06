@@ -180,6 +180,8 @@ class QuizApp {
         
         // Update the top left button so it makes sense to leave the screen
         this.backBtn.textContent = "Return to Dashboard";
+
+        createScore();
     }
 
     async getAIHint() {
@@ -217,6 +219,27 @@ class QuizApp {
             }
         }
     }
+
+    async createScore() {
+        const userId = JSON.parse(localStorage.getItem('userId'));
+
+        const response = await fetch(`${this.baseURL}/api/quiz/record-score`, {
+            method: 'POST',
+            headers: {
+                ...this.getHeaders(),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ quizId: this.quizData.quizId, studentId: userId, score: this.score })
+        });
+        
+        data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error((data && data.error) || 'API Request Failed');
+        }
+        return data;
+    }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
