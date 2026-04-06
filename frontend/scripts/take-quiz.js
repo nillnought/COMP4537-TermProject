@@ -1,4 +1,5 @@
-const backendURL = "http://localhost:8000";
+// const backendURL = "http://localhost:8000";
+const backendURL = "https://thincutbacon.site";
 
 class QuizApp {
     constructor() {
@@ -97,10 +98,8 @@ class QuizApp {
 
         const currentQuestionData = this.quizData.questions[this.currentIndex];
         const rawCorrect = currentQuestionData.correct;
-        let fullCorrectText = rawCorrect; // Default to whatever the AI gave us
+        let fullCorrectText = rawCorrect;
 
-        // SMART CHECK: If the AI only gave us a letter like "B", 
-        // hunt for the option that starts with "B)" or "B."
         const matchingOption = currentQuestionData.options.find(opt => 
             opt === rawCorrect || 
             opt.trim().startsWith(rawCorrect + ")") || 
@@ -110,22 +109,20 @@ class QuizApp {
         if (matchingOption) {
             fullCorrectText = matchingOption;
         } else if (rawCorrect.length === 1 && ["A", "B", "C", "D"].includes(rawCorrect.toUpperCase())) {
-            // FALLBACK: If AI said "B" but the options don't have letters in front of them, 
-            // just grab the 2nd option from the array (Index 1)
+            
             const index = ["A", "B", "C", "D"].indexOf(rawCorrect.toUpperCase());
             if (currentQuestionData.options[index]) {
                 fullCorrectText = currentQuestionData.options[index];
             }
         }
 
-        // Now we can accurately check if the user's selected text matches the full correct text
         const isCorrect = (this.selectedAnswer === fullCorrectText) || (this.selectedAnswer === rawCorrect);
 
-        // Save the full text for the final review screen!
+        
         this.userAnswers.push({
             question: currentQuestionData.question,
             selected: this.selectedAnswer,
-            correct: fullCorrectText, // This will now always be the full sentence
+            correct: fullCorrectText,
             isRight: isCorrect
         });
 
@@ -146,17 +143,17 @@ class QuizApp {
         this.questionEl.textContent = "Quiz Complete!";
         this.trackerEl.textContent = "";
 
-        // Build the top score header
+        
         let resultsHTML = `<h3 style="text-align: center; color: var(--secondary-color); margin-bottom: 2rem;">You scored ${this.score} out of ${this.quizData.questions.length}!</h3>`;
 
-        // Create a scrollable container for the review
+        
         resultsHTML += `<div style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left; max-height: 50vh; overflow-y: auto; padding-right: 1rem;">`;
 
-        // Loop through the history and build the UI
+        
         this.userAnswers.forEach((ans, index) => {
             const isCorrect = ans.isRight;
             
-            // Use your theme's red/orange color for wrong, secondary green for right
+            
             const statusColor = isCorrect ? 'var(--secondary-color)' : '#e76f51'; 
 
             resultsHTML += `
@@ -178,7 +175,6 @@ class QuizApp {
         this.hintBtn.style.display = 'none';
         this.nextBtn.style.display = 'none';
         
-        // Update the top left button so it makes sense to leave the screen
         this.backBtn.textContent = "Return to Dashboard";
 
         createScore();

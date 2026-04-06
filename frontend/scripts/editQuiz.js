@@ -3,7 +3,7 @@ class EditQuiz {
         const params = new URLSearchParams(window.location.search);
         this.quizID = params.get("id");
         this.token = localStorage.getItem("token");
-        this.backendURL = "http://localhost:8000" || "https://thincutbacon.site";
+        this.backendURL = "https://thincutbacon.site";
         this.saveBtn = document.getElementById("save-quiz")
         this.saveBtn.addEventListener('click', this.saveQuiz.bind(this));
         document.getElementById("add-question").addEventListener("click", this.addQuestion.bind(this));
@@ -12,7 +12,7 @@ class EditQuiz {
     }
 
     goBack(){
-        window.location.href = "/frontend/user-landing.html";
+        window.location.href = "/user-landing.html";
     }
 
     async loadQuiz() {

@@ -1,5 +1,5 @@
-const backendURL = "http://localhost:8000";
-// const backendURL = "https://thincutbacon.site";
+// const backendURL = "http://localhost:8000";
+const backendURL = "https://thincutbacon.site";
 
 class APIService {
     constructor(baseURL) {
@@ -243,7 +243,7 @@ class DashboardUI {
                 throw new Error(quiz.error);
             }
 
-            window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`;
+            window.location.href = `/editQuiz.html?id=${quiz.quizID}`;
         } catch(err) {
             console.error(err);
             alert("Failed to make new quiz!");
@@ -347,7 +347,7 @@ class DashboardUI {
         `;
         // for teachers to edit quizzes
         quizDiv.addEventListener('click', () => {
-            window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`
+            window.location.href = `/editQuiz.html?id=${quiz.quizID}`
         });
         this.teacherQuizList.appendChild(quizDiv);
     }
