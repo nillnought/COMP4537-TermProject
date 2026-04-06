@@ -220,8 +220,34 @@ class DashboardUI {
         on('join-class-form', 'submit', (e) => this.handleJoinClassSubmit(e));
         on('teacher-quiz-form', 'submit', (e) => this.handleTeacherQuizSubmit(e));
 
+        if(document.getElementById("create-empty-quiz")){
+            console.log('added');
+            on('create-empty-quiz', 'click', (e) => this.createEmptyQuiz(e));
+        }
+
         on('file-input', 'change', () => this.updateFileName(this.fileInput, this.fileNameDisplay));
         on('teacher-file-input', 'change', () => this.updateFileName(this.teacherFileInput, this.teacherFileNameDisplay));
+    }
+
+    async createEmptyQuiz(e) {
+        console.log("WORKS");
+        e.preventDefault();
+        try {
+            const res = await fetch(`${this.api.baseURL}/api/quiz/create-empty`, {
+                method: 'POST',
+                headers: this.api.getHeaders()
+            });
+
+            const quiz = await res.json();
+            if (!res.ok) {
+                throw new Error(quiz.error);
+            }
+
+            window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`;
+        } catch(err) {
+            console.error(err);
+            alert("Failed to make new quiz!");
+        }
     }
 
     renderTeacherDashboard() {

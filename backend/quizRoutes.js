@@ -145,4 +145,27 @@ router.post('/record-score', async(req, res) => {
     }
 })
 
+router.post('/create-empty', async(req, res) => {
+    try{
+        const numericId = req.user.userId || req.user.id;
+
+        const latest = await Quiz.findOne().sort({ quizID: -1 });
+        const nextId = latest ? latest.quizID + 1 : 1;
+
+        const newQuiz = new Quiz({
+            quizID: nextId,
+            teacherID: numericId,
+            title: "Untitled Quiz",
+            questions: []
+        });
+
+        await newQuiz.save();
+
+        res.json(newQuiz);
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({error: "Failed to create empty quiz"});
+    }
+});
+
 module.exports = router;
