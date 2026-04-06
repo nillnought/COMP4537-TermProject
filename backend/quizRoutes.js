@@ -36,7 +36,9 @@ router.post('/generate-from-pdf', upload.single('document'), async (req, res) =>
             return res.status(400).json({ error: 'No PDF file uploaded' });
         }
         
-        console.log(`2. File recognized: ${req.file.originalname} (${req.file.size} bytes)`);
+        // NEW: Grab the number from multer's parsed text fields (defaults to 10 if missing)
+        const requestedQuestions = req.body.numQuestions || 10;
+        console.log(`2. File recognized: ${req.file.originalname} (${req.file.size} bytes). User requested ${requestedQuestions} questions.`);
 
         console.log("3. Beginning PDF parsing...");
         const pdfData = await pdfParse(req.file.buffer);
@@ -46,6 +48,8 @@ router.post('/generate-from-pdf', upload.single('document'), async (req, res) =>
 
         // Attach text to body and run the AI generator
         req.body.topic = extractedText;
+        // req.body.numQuestions is already attached thanks to multer!
+        
         console.log("5. Handing off to AI Generator...");
         await quizGenerator.generateQuiz(req, res);
 
@@ -61,6 +65,38 @@ router.post('/generate-from-pdf', upload.single('document'), async (req, res) =>
 
 router.post('/hint', async (req, res) => {
     await quizGenerator.generateHint(req, res);
+});
+
+//for getting a quiz by its quiz ID
+router.get('/:id', async(req, res) => {
+    try {
+        const quiz = await Quiz.findOne({quizID: req.params.id});
+        if (!quiz) {
+            return res.status(404).json({error: "Quiz could not be found."});
+        }
+        res.json(quiz);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: "Server error"});
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const {title, questions} = req.body;
+        const updated = await Quiz.findOneAndUpdate(
+            {quizID: req.params.id},
+            {title, questions},
+            { returnDocument: 'after' }
+        );
+
+        if (!updated) {
+            return res.status(404).json({error: "Quiz not found"});
+        }
+        res.json(updated);
+    } catch(err){
+        res.status(500).json({error: "Failed to update quiz"});
+    }
 });
 
 module.exports = router;

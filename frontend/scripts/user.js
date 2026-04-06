@@ -13,6 +13,7 @@ class APIService {
         };
     }
 
+<<<<<<< HEAD
     async handleResponse(response) {
         if (response.status === 401) {
             localStorage.clear();
@@ -33,22 +34,30 @@ class APIService {
 
         return data;
     }
-
-    async generateQuizFromText(topic) {
+=======
+    // Handles standard text/topic quiz generation
+    async generateQuizFromText(topic, numQuestions) {
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
         const response = await fetch(`${this.baseURL}/api/quiz/generate-quiz`, {
             method: 'POST',
             headers: {
                 ...this.getHeaders(),
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ topic })
+            // Send numQuestions in the JSON payload
+            body: JSON.stringify({ topic, numQuestions })
         });
         return this.handleResponse(response);
     }
 
-    async generateQuizFromPDF(file) {
+=======
+    // Handles PDF File Upload using FormData
+    async generateQuizFromPDF(file, numQuestions) {
         const formData = new FormData();
         formData.append('document', file);
+        // Send numQuestions in the form data payload
+        formData.append('numQuestions', numQuestions);
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
 
         const response = await fetch(`${this.baseURL}/api/quiz/generate-from-pdf`, {
             method: 'POST',
@@ -59,6 +68,7 @@ class APIService {
     }
 
     async createClass(className) {
+<<<<<<< HEAD
         const response = await fetch(`${this.baseURL}/api/classes/create`, {
             method: 'POST',
             headers: {
@@ -68,6 +78,12 @@ class APIService {
             body: JSON.stringify({ name: className })
         });
         return this.handleResponse(response);
+=======
+        // You will need to make a backend route for this (e.g., POST /api/classes)
+        // For now, we mock the success response to update the UI
+        console.log(`Sending ${className} to backend...`);
+        return { name: className, students: [] };
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
     }
 
     async fetchMyClasses() {
@@ -125,6 +141,7 @@ class DashboardUI {
 
     async init() {
         try {
+<<<<<<< HEAD
             const [classes, quizzes] = await Promise.all([
                 this.api.fetchMyClasses(),
                 this.api.fetchMyQuizzes()
@@ -139,6 +156,18 @@ class DashboardUI {
 
             this.renderClassSections();
             this.renderQuizSections();
+=======
+            const quizzes = await this.api.fetchMyQuizzes();
+
+            // Clear out any loading text
+            this.quizList.innerHTML = '';
+
+            if (quizzes.length === 0) {
+                this.quizList.innerHTML = '<div id="no-classes"><h4>No quizzes yet...</h4></div>';
+            } else {
+                quizzes.forEach(quiz => this.renderQuizCard(quiz));
+            }
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
         } catch (err) {
             console.error('Failed to load dashboard:', err);
         }
@@ -148,9 +177,14 @@ class DashboardUI {
         this.quizModal = document.getElementById('pop-up');
         this.joinClassModal = document.getElementById('join-class-pop-up');
         this.classModal = document.getElementById('class-pop-up');
+<<<<<<< HEAD
         this.teacherQuizModal = document.getElementById('teacher-pop-up');
         this.assignQuizModal = document.getElementById('assign-quiz-pop-up');
 
+=======
+
+        // Buttons
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
         this.createClassBtn = document.getElementById('create-class');
         this.createQuizBtn = document.getElementById('create-quiz');
         this.joinClassBtn = document.getElementById('join-class');
@@ -164,11 +198,16 @@ class DashboardUI {
 
         this.signOutBtn = document.getElementById('signout');
 
+<<<<<<< HEAD
+=======
+        // Forms & Inputs
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
         this.quizForm = document.getElementById('quiz-form');
         this.quizInput = document.getElementById('quiz-text');
         this.fileInput = document.getElementById('file-input');
         this.fileNameDisplay = document.getElementById('file-name-display');
 
+<<<<<<< HEAD
         this.joinClassForm = document.getElementById('join-class-form');
         this.joinClassCodeInput = document.getElementById('join-class-code');
 
@@ -197,6 +236,31 @@ class DashboardUI {
         if (this.signOutBtn) {
             this.signOutBtn.addEventListener('click', () => this.signOut());
         }
+=======
+        this.classForm = document.getElementById('class-form');
+        this.classNameInput = document.getElementById('class-name-input');
+
+        // Display Lists
+        this.quizList = document.getElementById('quiz-list');
+        this.classList = document.getElementById('class-list');
+        this.noClassesText = document.getElementById('no-classes');
+        this.numQuestionsInput = document.getElementById('num-questions');
+    }
+
+    attachEventListeners() {
+        this.signOutBtn.addEventListener('click', () => this.signOut());
+
+        // Modal Toggles
+        this.createClassBtn.addEventListener('click', () => this.toggleModal(this.classModal, true));
+        this.closeClassBtn.addEventListener('click', () => this.toggleModal(this.classModal, false));
+
+        this.createQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, true));
+        this.closeQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, false));
+
+        // Form Submissions
+        this.quizForm.addEventListener('submit', (e) => this.handleQuizSubmit(e));
+        this.classForm.addEventListener('submit', (e) => this.handleClassSubmit(e));
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
 
         if (this.createClassBtn) {
             this.createClassBtn.addEventListener('click', () => this.toggleModal(this.classModal, true));
@@ -261,10 +325,11 @@ class DashboardUI {
 
     signOut() {
         localStorage.clear();
-        window.location.href = '/';
+        window.location.href = '/frontend/';
     }
 
     toggleModal(modalElement, show) {
+<<<<<<< HEAD
         if (!modalElement) return;
         modalElement.style.display = show ? 'flex' : 'none';
         if (!show) {
@@ -288,6 +353,16 @@ class DashboardUI {
             if (modalElement === this.assignQuizModal) {
                 this.assignQuizList.innerHTML = '';
             }
+=======
+        modalElement.style.display = show ? "flex" : "none";
+        if (!show) {
+            this.quizInput.value = "";
+            this.fileInput.value = "";
+            this.fileNameDisplay.textContent = "";
+            this.classNameInput.value = "";
+            // NEW: Reset to default 10 when modal closes
+            if (this.numQuestionsInput) this.numQuestionsInput.value = "10";
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
         }
     }
 
@@ -412,6 +487,7 @@ class DashboardUI {
         this.clearError(this.classModal);
 
         const className = this.classNameInput.value.trim();
+<<<<<<< HEAD
         const submitBtn = this.classForm.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
 
@@ -421,6 +497,84 @@ class DashboardUI {
             this.classMap[newClass.classID] = newClass;
             this.renderClassSections();
             this.toggleModal(this.classModal, false);
+=======
+
+        try {
+            const newClass = await this.api.createClass(className);
+            this.renderClassCard(newClass);
+            this.toggleModal(this.classModal, false);
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    renderClassCard(classData) {
+        // Hide the "No classes yet..." text if it exists
+        if (this.noClassesText) {
+            this.noClassesText.style.display = "none";
+        }
+
+        const classDiv = document.createElement("div");
+        classDiv.classList.add("class-box");
+
+        // Clean HTML relying entirely on our updated landing.css
+        classDiv.innerHTML = `
+            <h4 class="class-name">${classData.name || "Unnamed Class"}</h4>
+            <p class="class-size">${classData.students ? classData.students.length : 0} Students</p>
+        `;
+
+        // Add a click listener for the future when you want to open the class!
+        classDiv.addEventListener('click', () => {
+            console.log(`Clicked on class: ${classData.name}`);
+            // Future feature: window.location.href = `/class-dashboard.html?id=${classData.classID}`;
+        });
+
+        this.classList.appendChild(classDiv);
+    }
+
+    async handleQuizSubmit(e) {
+        e.preventDefault();
+        const topic = this.quizInput.value.trim();
+        const file = this.fileInput.files[0];
+
+        // NEW: Extract the number and ensure it's treated as an integer
+        const numQuestions = parseInt(this.numQuestionsInput.value, 10);
+
+        if (!topic && !file) {
+            alert("Please enter a course topic OR select a PDF document.");
+            return;
+        }
+
+        // NEW: Constraint Validation Check
+        if (numQuestions < 5 || numQuestions > 50) {
+            alert("Please select between 5 and 50 questions.");
+            return;
+        }
+
+        const submitBtn = document.getElementById("generate-quiz");
+        submitBtn.textContent = "Generating... Please wait";
+        submitBtn.disabled = true;
+
+        try {
+            let response;
+
+            if (file) {
+                console.log("Uploading PDF...");
+                // Pass the parameter here
+                response = await this.api.generateQuizFromPDF(file, numQuestions);
+            }
+            else {
+                console.log("Generating from topic...");
+                // Pass the parameter here
+                response = await this.api.generateQuizFromText(topic, numQuestions);
+            }
+
+            console.log(`Quiz generated successfully!`);
+            console.log(response)
+            this.renderQuizCard(response.quiz);
+            this.toggleModal(this.quizModal, false);
+
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
         } catch (err) {
             this.showError(this.classModal, err.message || 'Failed to create class');
         } finally {
@@ -428,6 +582,7 @@ class DashboardUI {
         }
     }
 
+<<<<<<< HEAD
     async handleJoinClassSubmit(e) {
         e.preventDefault();
         this.clearError(this.joinClassModal);
@@ -530,6 +685,31 @@ class DashboardUI {
         }
 
         this.toggleModal(this.assignQuizModal, true);
+=======
+    renderQuizCard(quiz) {
+        const quizDiv = document.createElement("div");
+        quizDiv.classList.add("class-box");
+        const questionCount = quiz.questions ? quiz.questions.length : 0;
+
+        quizDiv.innerHTML = `
+            <h4 class="class-name">${quiz.title || "Generated Quiz"}</h4>
+            <p class="class-size">${questionCount} Questions</p>
+        `;
+
+        // Add click event to redirect to the quiz page
+        quizDiv.addEventListener('click', () => {
+            // Store the specific quiz data so the next page can load it
+            localStorage.setItem('currentActiveQuiz', JSON.stringify(quiz));
+            window.location.href = 'take-quiz.html';
+        });
+
+        // for teachers to edit quizzes
+        // quizDiv.addEventListener('click', () => {
+        //     window.location.href = `/frontend/editQuiz.html?id=${quiz.quizID}`
+        // });
+
+        this.quizList.appendChild(quizDiv);
+>>>>>>> 76e43aed61d2ac877ed370ef881277de7d80da6b
     }
 }
 
