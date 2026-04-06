@@ -43,7 +43,6 @@
       <div id="quizzes" class="section">
         <div class="section-header">
           <h3>My Quizzes</h3>
-          <button id="create-quiz" class="add-btn"></button>
         </div>
         <hr>
         <div id="quiz-list" class="item-list"></div>
@@ -88,11 +87,9 @@
         <input type="text" placeholder="Enter Course Name / Topic" id="quiz-text">
         <h4 class="text-center">OR</h4>
 
-
         <label for="file-input" id="file-wrapper" class="file-label">Select PDF Document</label>
         <input id="file-input" type="file" accept=".pdf">
         <p id="file-name-display"></p>
-
 
         <div class="input-group" style="margin: 15px 0;">
           <label for="num-questions" style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Number
@@ -148,6 +145,14 @@
         <input id="teacher-file-input" type="file" accept=".pdf">
         <p id="teacher-file-name-display"></p>
 
+        <div class="input-group" style="margin: 15px 0;">
+          <label for="teacher-num-questions"
+            style="display: block; margin-bottom: 5px; font-weight: bold; color: #333;">Number of Questions
+            (5-50):</label>
+          <input type="number" id="teacher-num-questions" min="5" max="50" value="10" required
+            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+        </div>
+
         <div class="button-group">
           <button id="teacher-generate-quiz" type="submit" class="submit-btn">Generate quiz</button>
           <button type="button" id="close-teacher-quiz-modal" class="cancel-btn">Cancel</button>
@@ -167,16 +172,16 @@
     </div>
   </div>
 
-    <!-- TEACHER CLASS MODAL -->
-    <div id="roster-pop-up" class="modal-overlay" style="display: none;">
-      <div class="pop-up-box">
-        <h3 id="roster-modal-title">Class Roster</h3>
-        <div id="roster-list" class="item-list" style="max-height: 50vh; overflow-y: auto; margin: 1rem 0;"></div>
-        <div class="button-group">
-          <button type="button" id="close-roster-modal" class="cancel-btn">Close</button>
-        </div>
+  <!-- ROSTER MODAL -->
+  <div id="roster-pop-up" class="modal-overlay" style="display: none;">
+    <div class="pop-up-box">
+      <h3 id="roster-modal-title">Class Roster</h3>
+      <div id="roster-list" class="item-list" style="max-height: 50vh; overflow-y: auto; margin: 1rem 0;"></div>
+      <div class="button-group">
+        <button type="button" id="close-roster-modal" class="cancel-btn">Close</button>
       </div>
     </div>
+  </div>
 
   <script src="scripts/landing.js" defer></script>
   <script src="scripts/user.js" defer></script>
