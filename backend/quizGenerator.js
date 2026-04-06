@@ -38,7 +38,7 @@ class QuizGenerator {
             // (Line 39 is likely right here)
             const savedQuiz = new Quiz({
                 quizID: nextQuizId, 
-                studentID: numericId,
+                teacherID: numericId,
                 title: generatedQuizJSON.title || "AI Generated Quiz",
                 questions: generatedQuizJSON.questions
             });
