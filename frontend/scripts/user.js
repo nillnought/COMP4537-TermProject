@@ -247,6 +247,11 @@ class DashboardUI {
             this.closeAssignQuizBtn.addEventListener('click', () => this.toggleModal(this.assignQuizModal, false));
         }
 
+        const closeRosterBtn = document.getElementById('close-roster-modal');
+        if (closeRosterBtn) {
+            closeRosterBtn.addEventListener('click', () => this.toggleModal(this.rosterModal, false));
+        }
+
         if (this.quizForm) {
             this.quizForm.addEventListener('submit', (e) => this.handleQuizSubmit(e));
         }
@@ -366,8 +371,64 @@ class DashboardUI {
             <p class="class-size" style="font-size: 1rem;">Share code: <strong>${classData.classID}</strong></p>
             <p class="class-size">${classData.students?.length || 0} Students</p>
         `;
-        classDiv.addEventListener('click', () => this.openAssignQuizModal(classData));
+
+        const btnGroup = document.createElement('div');
+        btnGroup.style.cssText = 'display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap;';
+
+        const assignBtn = document.createElement('button');
+        assignBtn.className = 'submit-btn';
+        assignBtn.textContent = 'Assign Quiz';
+        assignBtn.style.flex = '1';
+        assignBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.openAssignQuizModal(classData);
+        });
+
+        const rosterBtn = document.createElement('button');
+        rosterBtn.className = 'cancel-btn';
+        rosterBtn.textContent = 'View Roster';
+        rosterBtn.style.flex = '1';
+        rosterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.openRosterModal(classData);
+        });
+
+        btnGroup.appendChild(assignBtn);
+        btnGroup.appendChild(rosterBtn);
+        classDiv.appendChild(btnGroup);
+
         this.teacherClassList.appendChild(classDiv);
+    }
+
+    async openRosterModal(classData) {
+        if (!this.rosterModal) return;
+
+        this.rosterModalTitle.textContent = `Roster — ${classData.name}`;
+        this.rosterList.innerHTML = '<p style="text-align:center; color: var(--accent-text);">Loading...</p>';
+        this.toggleModal(this.rosterModal, true);
+
+        try {
+            const students = await this.api.fetchClassRoster(classData.classID);
+
+            this.rosterList.innerHTML = '';
+
+            if (!students.length) {
+                this.rosterList.innerHTML = '<p style="text-align:center; color: var(--accent-text);">No students enrolled yet.</p>';
+                return;
+            }
+
+            students.forEach((student, index) => {
+                const row = document.createElement('div');
+                row.style.cssText = 'display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.25rem; border-bottom:1px solid var(--main-shadow);';
+                row.innerHTML = `
+                    <span style="font-weight:600; color:var(--accent-text); min-width:1.5rem;">${index + 1}.</span>
+                    <span style="color:var(--dark-text);">${student.email}</span>
+                `;
+                this.rosterList.appendChild(row);
+            });
+        } catch (err) {
+            this.rosterList.innerHTML = `<p style="text-align:center; color:#e76f51;">${err.message || 'Failed to load roster.'}</p>`;
+        }
     }
 
     renderQuizSections() {
