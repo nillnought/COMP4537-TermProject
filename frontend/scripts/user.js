@@ -221,12 +221,12 @@ class DashboardUI {
             this.closeClassBtn.addEventListener('click', () => this.toggleModal(this.classModal, false));
         }
 
-        if (this.createQuizBtn) {
-            this.createQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, true));
-        }
-        if (this.closeQuizBtn) {
-            this.closeQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, false));
-        }
+        // if (this.createQuizBtn) {
+        //     this.createQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, true));
+        // }
+        // if (this.closeQuizBtn) {
+        //     this.closeQuizBtn.addEventListener('click', () => this.toggleModal(this.quizModal, false));
+        // }
 
         if (this.joinClassBtn) {
             this.joinClassBtn.addEventListener('click', () => this.toggleModal(this.joinClassModal, true));
@@ -680,27 +680,27 @@ class DashboardUI {
         this.toggleModal(this.assignQuizModal, true);
     }
 
-    // renderQuizCard(quiz) {
-    //     const quizDiv = document.createElement("div");
-    //     quizDiv.classList.add("class-box");
-    //     const questionCount = quiz.questions ? quiz.questions.length : 0;
+    renderQuizCard(quiz) {
+        const quizDiv = document.createElement("div");
+        quizDiv.classList.add("class-box");
+        const questionCount = quiz.questions ? quiz.questions.length : 0;
 
-    //     quizDiv.innerHTML = `
-    //     <h4 class="class-name">${quiz.title || "Generated Quiz"}</h4>
-    //     <p class="class-size">${questionCount} Questions</p>
-    //     `;
+        quizDiv.innerHTML = `
+        <h4 class="class-name">${quiz.title || "Generated Quiz"}</h4>
+        <p class="class-size">${questionCount} Questions</p>
+        `;
 
-    //     // Add click event to redirect to the quiz page
-    //     quizDiv.addEventListener('click', () => {
-    //         // Store the specific quiz data so the next page can load it
-    //         localStorage.setItem('currentActiveQuiz', JSON.stringify(quiz));
-    //         window.location.href = 'take-quiz.html';
-    //     });
+        // Add click event to redirect to the quiz page
+        quizDiv.addEventListener('click', () => {
+            // Store the specific quiz data so the next page can load it
+            localStorage.setItem('currentActiveQuiz', JSON.stringify(quiz));
+            window.location.href = 'take-quiz.html';
+        });
 
         
 
-    //     this.quizList.appendChild(quizDiv);
-    // }
+        this.quizList.appendChild(quizDiv);
+    }
 
 }
 
