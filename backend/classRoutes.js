@@ -155,4 +155,35 @@ router.post('/join', Auth.verifyToken, async (req, res) => {
   }
 });
 
+router.get('/:classID/students', Auth.verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== 'teacher') {
+      return res.status(403).json({ error: 'Only teachers can view class rosters' });
+    }
+
+    const classID = Number(req.params.classID);
+    const classDoc = await Class.findOne({ classID });
+    if (!classDoc) {
+      return res.status(404).json({ error: 'Class not found' });
+    }
+
+    // Verify the requesting teacher owns this class
+    const numericId = req.user.userId || req.user.id;
+    if (classDoc.teacherID !== numericId) {
+      return res.status(403).json({ error: 'You do not own this class' });
+    }
+
+    // Fetch email for each enrolled student ID
+    const students = await User.find(
+      { id: { $in: classDoc.students } },
+      'id email'
+    );
+
+    return res.json(students);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch class roster' });
+  }
+});
+
 module.exports = router;

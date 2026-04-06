@@ -94,7 +94,7 @@ class LandingPage {
 
     signOut() {
         localStorage.clear();
-        window.location.href = '/frontend/';
+        window.location.href = '/';
     }
 }
 
