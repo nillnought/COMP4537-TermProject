@@ -94,14 +94,14 @@ class APIService {
         return this.handleResponse(response);
     }
 
-    async joinClass(classID) {
+    async joinClass(entryCode) {
         const response = await fetch(`${this.baseURL}/api/classes/join`, {
             method: 'POST',
             headers: {
                 ...this.getHeaders(),
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ classID: Number(classID) })
+            body: JSON.stringify({ entryCode: String(entryCode) })
         });
         return this.handleResponse(response);
     }
@@ -143,7 +143,6 @@ class DashboardUI {
 
             this.renderClassSections();
             this.renderQuizSections();
-            // const quizzes = await this.api.fetchMyQuizzes();
 
             // Clear out any loading text
             this.quizList.innerHTML = '';
@@ -353,7 +352,7 @@ class DashboardUI {
         classDiv.classList.add('class-box');
         classDiv.innerHTML = `
             <h4 class="class-name">${classData.name || 'Unnamed Class'}</h4>
-            <p class="class-size">Code: ${classData.classID}</p>
+            <p class="class-size">Code: ${classData.entryCode}</p>
         `;
         this.classList.appendChild(classDiv);
     }
@@ -363,7 +362,7 @@ class DashboardUI {
         classDiv.classList.add('class-box');
         classDiv.innerHTML = `
             <h4 class="class-name">${classData.name || 'Unnamed Class'}</h4>
-            <p class="class-size" style="font-size: 1rem;">Share code: <strong>${classData.classID}</strong></p>
+            <p class="class-size" style="font-size: 1rem;">Share code: <strong>${classData.entryCode}</strong></p>
             <p class="class-size">${classData.students?.length || 0} Students</p>
         `;
         classDiv.addEventListener('click', () => this.openAssignQuizModal(classData));
@@ -520,7 +519,7 @@ class DashboardUI {
         e.preventDefault();
         this.clearError(this.joinClassModal);
 
-        const classCode = this.joinClassCodeInput.value.trim();
+        const classCode = this.joinClassCodeInput.value.trim().toUpperCase();
         const submitBtn = this.joinClassForm.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
 

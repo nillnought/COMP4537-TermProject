@@ -6,6 +6,27 @@ const Quiz = require('./models/Quiz');
 
 const router = express.Router();
 
+async function generateCode() {
+  const CHARACTERS ='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const LENGTH = 6;
+  
+  let code = '';
+
+  while (code == '') {
+    for (var i = 0; i < LENGTH; i++) {
+      code += CHARACTERS.charAt(Math.floor(Math.random() * CHARACTERS.length));
+    }
+
+    const invalid = await Class.findOne({ entryCode: code });
+
+    if (invalid != null) {
+      code = '';
+    }
+  }
+
+  return code;
+}
+
 router.post('/create', Auth.verifyToken, async (req, res) => {
   try {
     if (req.user.role !== 'teacher') {
@@ -19,10 +40,12 @@ router.post('/create', Auth.verifyToken, async (req, res) => {
 
     const highestClass = await Class.findOne({}).sort({ classID: -1 });
     const nextClassID = highestClass ? highestClass.classID + 1 : 1;
+    const entryCode = await generateCode();
 
     const newClass = await Class.create({
       classID: nextClassID,
       teacherID: req.user.userId,
+      entryCode: entryCode,
       name: name.trim(),
       students: []
     });
@@ -92,13 +115,13 @@ router.post('/join', Auth.verifyToken, async (req, res) => {
     if (req.user.role !== 'student') {
       return res.status(403).json({ error: 'Only students can join classes' });
     }
-
-    const classID = Number(req.body.classID);
-    if (!classID) {
-      return res.status(400).json({ error: 'Class code is required' });
+    
+    const entryCode = String(req.body.entryCode);
+    if (!entryCode) {
+      return res.status(400).json({ error: 'Entry code is required' });
     }
 
-    const classDoc = await Class.findOne({ classID });
+    const classDoc = await Class.findOne({ entryCode: entryCode });
     if (!classDoc) {
       return res.status(404).json({ error: 'Class not found' });
     }
@@ -120,8 +143,8 @@ router.post('/join', Auth.verifyToken, async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    if (!user.classes.includes(classID)) {
-      user.classes.push(classID);
+    if (!user.classes.includes(classDoc.classID)) {
+      user.classes.push(classDoc.classID);
       await user.save();
     }
 
