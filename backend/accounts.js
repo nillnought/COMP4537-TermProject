@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 
 class Accounts {
-  constructor(){
+  constructor() {
     this.router = express.Router();
     this.initRoutes();
   }
@@ -16,7 +16,7 @@ class Accounts {
 
   async registerUser(req, res) {
     try {
-      const { email, password, type } = req.body;
+      const { email, password, role } = req.body;
       if (!email || !password) {
         return res.status(400).json({ error: 'Email and password required' });
       }
@@ -34,10 +34,12 @@ class Accounts {
         id: nextId,
         email,
         password: hashedPassword,
-        type: type === 'admin' ? 'admin' : 'user',
+        type: 'user',
+        role: role === 'teacher' ? 'teacher' : 'student',
       });
       await user.save();
-      res.status(201).json({ message: 'User registered', type: user.type, id: user.id });
+      console.log('User registered:', { id: user.id, email: user.email, role: user.role });
+      res.status(201).json({ message: 'User registered', type: user.type, role: user.role, id: user.id });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Failed to register user' });
@@ -58,8 +60,8 @@ class Accounts {
       if (!passwordMatch) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
-      const token = jwt.sign({ id: user._id, userId: user.id, type: user.type }, process.env.JWT_SECRET, { expiresIn: '1d' });
-      res.json({ token, type: user.type, userId: user.id });
+      const token = jwt.sign({ id: user._id, userId: user.id, type: user.type, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+      res.json({ token, type: user.type, role: user.role, userId: user.id });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Login failed' });
