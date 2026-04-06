@@ -282,7 +282,7 @@ class DashboardUI {
 
     signOut() {
         localStorage.clear();
-        window.location.href = '/';
+        window.location.href = '/frontend/';
     }
 
     toggleModal(modalElement, show) {
