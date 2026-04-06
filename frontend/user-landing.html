@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,60 +8,87 @@
   <link rel="stylesheet" href="styles/general.css">
   <link rel="stylesheet" href="styles/landing.css">
 </head>
+
 <body>
   <div id="header">
-    <h3>User Dashboard</h3>
-    <button id="signout">Sign Out</button>
+    <div class="nav-left">
+      <span class="app-name">QuizApp</span>
+    </div>
+    <h3>Dashboard</h3>
+    <div class="nav-right">
+      <span id="role-badge"></span>
+      <button id="signout">Sign Out</button>
+    </div>
   </div>
-  
+
   <div id="main-cont">
-    <div class="section" id="classes">
-      <div class="section-header">
-        <h3>My Classes</h3>
-        <button id="create-class" class="add-btn"></button>
+    <!-- STUDENT VIEW -->
+    <div id="student-view" style="display: none;">
+      <div class="section" id="classes">
+        <div class="section-header">
+          <h3>My Classes</h3>
+          <button id="join-class" class="add-btn"></button>
+        </div>
+        <hr>
+        <div id="class-list" class="item-list">
+          <div id="no-classes">
+            <h4>No classes yet...</h4>
+          </div>
+        </div>
       </div>
-      <hr>
-      <div id="class-list" class="item-list">
-        <div id="no-classes">
-          <h4>No classes yet...</h4>
+
+      <div id="quizzes" class="section">
+        <div class="section-header">
+          <h3>My Quizzes</h3>
+          <button id="create-quiz" class="add-btn"></button>
+        </div>
+        <hr>
+        <div id="quiz-list" class="item-list"></div>
+      </div>
+    </div>
+
+    <!-- TEACHER VIEW -->
+    <div id="teacher-view" style="display: none;">
+      <div class="section" id="teacher-classes">
+        <div class="section-header">
+          <h3>My Classes</h3>
+          <button id="create-class" class="add-btn"></button>
+        </div>
+        <hr>
+        <div id="teacher-class-list" class="item-list">
+          <div id="no-teacher-classes">
+            <h4>No classes yet...</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="teacher-quizzes">
+        <div class="section-header">
+          <h3>My Quizzes</h3>
+          <button id="create-teacher-quiz" class="add-btn"></button>
+        </div>
+        <hr>
+        <div id="teacher-quiz-list" class="item-list">
+          <div id="no-teacher-quizzes">
+            <h4>No quizzes yet...</h4>
+          </div>
         </div>
       </div>
     </div>
-
-    <div id="quizzes" class="section">
-      <div class="section-header">
-        <h3>My Quizzes</h3>
-        <button id="create-quiz" class="add-btn"></button>
-      </div>
-      <hr>
-      <div id="quiz-list" class="item-list"></div>
-    </div>
   </div>
 
-  <div id="class-pop-up" class="modal-overlay" style="display: none;">
-    <div class="pop-up-box">
-      <h3>Create a New Class</h3>
-      <form id="class-form">
-        <input type="text" placeholder="Class Name (e.g., COMP 4537)" id="class-name-input" required>
-        <div class="button-group">
-            <button type="submit" class="submit-btn">Create Class</button>
-            <button type="button" id="close-class-modal" class="cancel-btn">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
+  <!-- STUDENT MODALS -->
   <div id="pop-up" class="modal-overlay" style="display: none;">
     <div class="pop-up-box">
       <h3>Generate Quiz</h3>
       <form id="quiz-form">
         <input type="text" placeholder="Enter Course Name / Topic" id="quiz-text">
         <h4 class="text-center">OR</h4>
-        
+
         <label for="file-input" id="file-wrapper" class="file-label">Select PDF Document</label>
         <input id="file-input" type="file" accept=".pdf">
         <p id="file-name-display"></p>
-        
+
         <div class="button-group">
           <button id="generate-quiz" type="submit" class="submit-btn">Generate quiz</button>
           <button type="button" id="close-quiz-modal" class="cancel-btn">Cancel</button>
@@ -69,6 +97,66 @@
     </div>
   </div>
 
+  <div id="join-class-pop-up" class="modal-overlay" style="display: none;">
+    <div class="pop-up-box">
+      <h3>Join Class</h3>
+      <form id="join-class-form">
+        <input type="number" placeholder="Enter Class Code" id="join-class-code" required>
+        <div class="error-container"></div>
+        <div class="button-group">
+          <button id="join-class-submit" type="submit" class="submit-btn">Join Class</button>
+          <button type="button" id="close-join-class-modal" class="cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TEACHER MODALS -->
+  <div id="class-pop-up" class="modal-overlay" style="display: none;">
+    <div class="pop-up-box">
+      <h3>Create a New Class</h3>
+      <form id="class-form">
+        <input type="text" placeholder="Class Name (e.g., COMP 4537)" id="class-name-input" required>
+        <div class="button-group">
+          <button type="submit" class="submit-btn">Create Class</button>
+          <button type="button" id="close-class-modal" class="cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="teacher-pop-up" class="modal-overlay" style="display: none;">
+    <div class="pop-up-box">
+      <h3>Generate Quiz</h3>
+      <form id="teacher-quiz-form">
+        <input type="text" placeholder="Enter Course Name / Topic" id="teacher-quiz-text">
+        <h4 class="text-center">OR</h4>
+
+        <label for="teacher-file-input" id="teacher-file-wrapper" class="file-label">Select PDF Document</label>
+        <input id="teacher-file-input" type="file" accept=".pdf">
+        <p id="teacher-file-name-display"></p>
+
+        <div class="button-group">
+          <button id="teacher-generate-quiz" type="submit" class="submit-btn">Generate quiz</button>
+          <button type="button" id="close-teacher-quiz-modal" class="cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="assign-quiz-pop-up" class="modal-overlay" style="display: none;">
+    <div class="pop-up-box">
+      <h3 id="assign-quiz-title">Assign Quiz</h3>
+      <div id="assign-quiz-list" class="item-list"></div>
+      <div class="error-container"></div>
+      <div class="button-group">
+        <button type="button" id="close-assign-quiz-modal" class="cancel-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/landing.js" defer></script>
   <script src="scripts/user.js" defer></script>
 </body>
+
 </html>
