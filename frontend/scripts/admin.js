@@ -1,4 +1,4 @@
-const backendURL = "https://thincutbacon.site";
+const backendURL = "http://localhost:8000";
 
 document.getElementById('signout').addEventListener('click', () => {
     localStorage.removeItem('token');
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async() =>{
     const token = localStorage.getItem('token');
     const userType = localStorage.getItem('userType');
     if (!token || userType !== 'admin') {
-        window.location.href = '/';
+        window.location.href = '/frontend/';
     }
 
     document.getElementById('signout').addEventListener('click', () => {

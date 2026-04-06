@@ -28,7 +28,7 @@ class LandingPage {
     async init() {
         // Verify token exists
         if (!this.token) {
-            window.location.href = '/';
+            window.location.href = '/frontend/';
             return;
         }
 
@@ -37,7 +37,7 @@ class LandingPage {
         if (!decodedToken || !decodedToken.type) {
             console.error('Invalid token');
             localStorage.clear();
-            window.location.href = '/';
+            window.location.href = '/frontend/';
             return;
         }
 
@@ -94,7 +94,7 @@ class LandingPage {
 
     signOut() {
         localStorage.clear();
-        window.location.href = '/';
+        window.location.href = '/frontend/';
     }
 }
 
