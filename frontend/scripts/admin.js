@@ -1,4 +1,5 @@
-const backendURL = "http://localhost:8000";
+// const backendURL = "http://localhost:8000";
+const backendURL = "https://thincutbacon.site";
 
 document.getElementById('signout').addEventListener('click', () => {
     localStorage.removeItem('token');
@@ -11,14 +12,14 @@ document.addEventListener('DOMContentLoaded', async() =>{
     const token = localStorage.getItem('token');
     const userType = localStorage.getItem('userType');
     if (!token || userType !== 'admin') {
-        window.location.href = '/frontend/';
+        window.location.href = '/';
     }
 
     document.getElementById('signout').addEventListener('click', () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userType');
         localStorage.removeItem('userId');
-        window.location.href = '/frontend/';
+        window.location.href = '/';
     });
     try {
         const res = await fetch(`${backendURL}/api/admin/user-tokens`, {

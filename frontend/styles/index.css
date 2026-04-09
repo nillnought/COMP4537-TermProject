@@ -1,11 +1,18 @@
 #header{
     height:8vh;
-
     position: sticky;
     top: 0;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
     background-color: var(--secondary-color);
     
+}
+#header-title{
+    font-weight: 900;
+    color: var(--main-color);
+    user-select: none;
 }
 
 #main-cont{
@@ -21,11 +28,25 @@
     
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap:2em;
     
     background-color: var(--main-color);
     /* box-shadow: 0 0 0.5em 0.5em var(--secondary-shadow); */
 }
+#hero-text p {
+    font-weight: 400;
+    
+}
 
+#title{
+    color: var(--secondary-color);
+    font-weight: 900;
+    font-size: xxx-large;
+    letter-spacing: 0.2rem;
+}
 #register-btns{
     display: flex;
     justify-content: center;
