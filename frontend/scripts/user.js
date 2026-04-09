@@ -48,7 +48,10 @@ class APIService {
         formData.append('numQuestions', numQuestions);
         const response = await fetch(`${this.baseURL}/api/quiz/generate-from-pdf`, {
             method: 'POST',
-            headers: this.getHeaders(),
+            headers: {
+                ...this.getHeaders(),
+                'Content-Type': 'application/json'
+            },
             body: formData
         });
         return this.handleResponse(response);
