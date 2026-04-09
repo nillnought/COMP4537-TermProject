@@ -21,7 +21,10 @@ class Server {
   }
 
   configureMiddleware() {
-    this.app.use(cors());
+    this.app.use(cors({
+      origin: 'https://comp4537-termproject.netlify.app',
+      credentials: true
+    }));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
   }
